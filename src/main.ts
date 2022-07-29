@@ -1,4 +1,4 @@
 import './engine/kaboom';
-import './scenes/hello';
+import './scenes/bergamot';
 
 go('hello');
