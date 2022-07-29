@@ -1,21 +1,29 @@
 import { SPEED } from '../constants/player';
+import { test2 } from '../levels';
 
 // @ts-ignore
 const game = () => {
+  addLevel(test2, {
+    width: 32,
+    height: 20,
+    pos: vec2(0, 0),
+    x: () => [rect(32,32), color(255, 0, 0), solid(), area(), 'walls'],
+    b: () => [rect(32,32), color(0, 255, 0), solid(), area(), 'test'],
+   });
   const player = add([
-    pos(center()),
-    rect(50, 50),
+    pos(0, 0),
+    sprite('mark'),
+    scale(2),
     color(255, 255, 255),
     area(),
     body(),
-    // doubleJump(),
     {
       speed: SPEED,
       dead: false,
     }
   ]);
 
-  add([rect(width() *2, 10), pos(0, height() - 10), color(255, 255, 255), solid(), area()]);
+  // add([rect(width() *2, 10), pos(0, height() - 10), color(255, 255, 255), solid(), area()]);
 
   onKeyPress('space', () => {
     if (player.isGrounded()) {
@@ -32,11 +40,8 @@ const game = () => {
   });
 
   player.onUpdate(() => {
-    console.log(width(), player.pos.x, 'test');
-
-    // .move() is provided by pos()
     if (player.pos.x > width()) {
-      camPos(vec2(player.pos.x + width() / 2, center().y));
+      camPos(vec2(Math.floor(1000 / width()) * width() + width() / 2, center().y));
     } else {
       camPos(center());
     }
