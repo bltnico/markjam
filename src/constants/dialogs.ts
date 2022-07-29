@@ -1,5 +1,5 @@
 export const INTRO = [
-  ['orange', 'Hello'],
+  ['mark', 'Hello'],
   ['lemon', 'Welcome in this fuck*ng game'],
   ['strawberry', "Ok guys let's go !"],
 ];

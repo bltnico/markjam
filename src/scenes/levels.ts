@@ -1,6 +1,9 @@
+import { FRUITS_SIZE } from '../constants/sprite';
 import './game';
 
 const max_levels = 4;
+
+const LEVELS = ['lemon', 'orange', 'strawberry', 'cherry'];
 
 const levels = () => {
   let activeLevel: number = 0;
@@ -11,8 +14,10 @@ const levels = () => {
 
   let i = 0;
   for (i; i < max_levels; i++) {
-    const x = 50 * 2 * (i + 1);
-    add([pos(x, 0), rect(50, 50), color(255, 255, 255), 'level']);
+    // fruits size * scale * spacing + pos index
+    const x = FRUITS_SIZE * 3 * 2.5 * (i + 1);
+    // @ts-ignore
+    add([pos(x, 0), sprite(LEVELS[i]), scale(3), color(255, 255, 255), origin('center'), 'level']);
   }
 
   centerCamPos();
@@ -37,8 +42,8 @@ const levels = () => {
   });
 
   onUpdate('level', () => {
-    every('level', (level) => level.use(color(255, 255, 255)));
-    get('level')[activeLevel].use(color(255, 0, 0));
+    every('level', (level) => level.use(scale(3)));
+    get('level')[activeLevel].use(scale(5));
   });
 
   onKeyPress('space', () => {
