@@ -3,13 +3,15 @@ import { test2 } from '../levels';
 
 // @ts-ignore
 const game = () => {
+  play('platform');
+
   addLevel(test2, {
     width: 32,
     height: 20,
     pos: vec2(0, 0),
-    x: () => [rect(32,32), color(255, 0, 0), solid(), area(), 'walls'],
-    b: () => [rect(32,32), color(0, 255, 0), solid(), area(), 'test'],
-   });
+    x: () => [rect(32, 32), color(255, 0, 0), solid(), area(), 'walls'],
+    b: () => [rect(32, 32), color(0, 255, 0), solid(), area(), 'test'],
+  });
   const player = add([
     pos(0, 0),
     sprite('mark'),
@@ -20,7 +22,7 @@ const game = () => {
     {
       speed: SPEED,
       dead: false,
-    }
+    },
   ]);
 
   // add([rect(width() *2, 10), pos(0, height() - 10), color(255, 255, 255), solid(), area()]);
@@ -32,11 +34,11 @@ const game = () => {
   });
 
   onKeyDown(['left', 'q'], () => {
-    player.move(- player.speed, 0);
+    player.move(-player.speed, 0);
   });
 
   onKeyDown(['right', 'd'], () => {
-    player.move(+ player.speed, 0);
+    player.move(+player.speed, 0);
   });
 
   player.onUpdate(() => {
@@ -45,7 +47,7 @@ const game = () => {
     } else {
       camPos(center());
     }
-  })
+  });
 };
 
 scene('game', game);
