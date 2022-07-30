@@ -13,6 +13,7 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
   const avatar = add([scale(3), origin('center'), pos(center().sub(0, 50))]);
 
   function updateDialog() {
+    play('talk1');
     const [char, dialog] = dialogs[curDialog];
 
     avatar.use(sprite(char));

@@ -3,12 +3,13 @@ import './game';
 
 const max_levels = 4;
 
-const LEVELS = ['lemonMonster', 'orange', 'strawberry', 'cherry'];
+const LEVELS = ['lemon', 'orange', 'strawberry', 'cherry'];
 
 const levels = () => {
   let activeLevel: number = 0;
 
   function centerCamPos(target: number = 0) {
+    play('click');
     camPos(vec2(get('level')[target].pos.x, get('level')[target].pos.y));
   }
 
@@ -17,7 +18,7 @@ const levels = () => {
     // fruits size * scale * spacing + pos index
     const x = FRUITS_SIZE * 3 * 2.5 * (i + 1);
     // @ts-ignore
-    add([pos(x, 0), sprite(LEVELS[i]), scale(3), color(255, 255, 255), origin('center'), 'level']);
+    add([pos(x, 0), sprite(LEVELS[i]), scale(3), origin('center'), 'level']);
   }
 
   centerCamPos();
