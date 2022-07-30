@@ -2,13 +2,13 @@ import './engine/kaboom';
 import './engine/sprites';
 import './engine/sounds';
 
-import './scenes/bergamot';
+import './scenes/start';
 import './scenes/battle';
 import './scenes/levels';
 import './scenes/boss';
 
 function start() {
-  go('game');
+  go('start');
 }
 
 window.addEventListener('DOMContentLoaded', () => {

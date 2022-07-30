@@ -7,11 +7,11 @@ const game = () => {
     width: 32,
     height: 32,
     pos: vec2(0, 0),
-    x: () => [rect(32,32), color(255, 255, 255), solid(), area(), 'walls'],
-    b: () => [rect(32,32), color(0, 255, 0), solid(), area(), 'test'],
-    n: () => [rect(32,32), color(0, 0, 255), 'nuage'],
+    x: () => [rect(32, 32), color(255, 255, 255), solid(), area(), 'walls'],
+    b: () => [rect(32, 32), color(0, 255, 0), solid(), area(), 'test'],
+    n: () => [rect(32, 32), color(0, 0, 255), 'nuage'],
     // v: () => [rect(32,32), color(0, 255, 255), solid(), area(), 'dead'],
-    v: () => [sprite('mark2'), scale(2), solid(), area(), 'enemy']
+    v: () => [sprite('mark2'), scale(2), solid(), area(), 'enemy'],
   });
 
   const player = add([
@@ -23,7 +23,7 @@ const game = () => {
     body(),
     {
       speed: SPEED,
-    }
+    },
   ]);
 
   player.onCollide('dead', () => {
@@ -32,7 +32,7 @@ const game = () => {
 
   player.onDestroy(() => {
     go('game');
-  })
+  });
 
   onKeyPress('space', () => {
     if (player.isGrounded()) {
@@ -43,16 +43,16 @@ const game = () => {
   });
 
   onKeyDown(['left', 'q'], () => {
-    player.move(- player.speed, 0);
+    player.move(-player.speed, 0);
   });
 
   onKeyDown(['right', 'd'], () => {
-    player.move(+ player.speed, 0);
+    player.move(+player.speed, 0);
   });
 
   player.onDeath(() => {
     go('game');
-  })
+  });
 
   player.onUpdate(() => {
     if (player.pos.x > width()) {
@@ -60,7 +60,7 @@ const game = () => {
     } else {
       camPos(center());
     }
-  })
+  });
 };
 
 scene('game', game);
