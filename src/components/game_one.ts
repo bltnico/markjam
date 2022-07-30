@@ -2,7 +2,7 @@ import { GameObj } from 'kaboom';
 
 import { SPEED } from '../constants/player';
 
-const bossOne = (onEnd: () => void) => {
+const gameOne = (onEnd: () => void) => {
   wait(0.3, () => {
     loop(rand(0.1, 0.2), () => {
       add([sprite('lemon'), scale(3), body(), area(), pos(rand(0, width()), 0), cleanup(), 'object']);
@@ -24,7 +24,7 @@ const bossOne = (onEnd: () => void) => {
     mark.move(SPEED * 3, 0);
     mark.angle += 20;
     if (mark.pos.x > width()) {
-      mark.pos.x = width() - 64;
+      mark.pos.x = width();
     }
   });
 
@@ -39,4 +39,4 @@ const bossOne = (onEnd: () => void) => {
   });
 };
 
-export default bossOne;
+export default gameOne;

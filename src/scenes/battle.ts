@@ -1,5 +1,7 @@
-import bossOne from '../components/boss_one';
-import b from './../components/battle';
+import gameOne from '../components/game_one';
+import gameTwo from '../components/game_two';
+import gameThree from '../components/game_three';
+import b from '../components/battle_ui';
 import './boss';
 
 const battle = () => {
@@ -9,9 +11,10 @@ const battle = () => {
   let success = false;
 
   b({
-    label: 'Dodge !',
+    // label: 'Collect',
+    label: 'Jump',
     onStart: () =>
-      bossOne(() => {
+      gameTwo(() => {
         success = false;
         end = true;
       }),
