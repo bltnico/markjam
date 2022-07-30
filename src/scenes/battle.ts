@@ -1,3 +1,4 @@
+import { BATTLE_LEMON_LOSE, BATTLE_LEMON_WIN } from '../constants/dialogs';
 import battle from '../engine/battle';
 import './boss';
 
@@ -11,8 +12,12 @@ const battleScene = () => {
     go('boss', win);
   });
 
-  battle.onBattleEnd(() => {
-    go('levels');
+  battle.onBattleEnd((win: boolean) => {
+    music.stop();
+
+    go('dialog', win ? BATTLE_LEMON_WIN : BATTLE_LEMON_LOSE, () => {
+      go('levels');
+    });
   });
 };
 

@@ -19,6 +19,6 @@ loadSprite('lemonMonster', lemonMonster, {
   anims: {
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
-    hurt: { from: 16, to: 24 },
+    hurt: { from: 16, to: 24, loop: true },
   },
 });
