@@ -1,35 +1,19 @@
-import gameOne from '../components/game_one';
-import gameTwo from '../components/game_two';
-import gameThree from '../components/game_three';
-import b from '../components/battle_ui';
+import battle from '../engine/battle';
 import './boss';
 
-const battle = () => {
+const battleScene = () => {
   const music = play('game');
 
-  let end = false;
-  let success = false;
+  battle.play();
 
-  b({
-    // label: 'Collect',
-    label: 'Jump',
-    onStart: () =>
-      gameTwo(() => {
-        success = false;
-        end = true;
-      }),
-    onEnd: () => {
-      success = true;
-      end = true;
-    },
+  battle.onGameEnd((win: boolean) => {
+    music.stop();
+    go('boss', win);
   });
 
-  onUpdate(() => {
-    if (end) {
-      music.stop();
-      go('boss', success);
-    }
+  battle.onBattleEnd(() => {
+    go('levels');
   });
 };
 
-scene('battle', battle);
+scene('battle', battleScene);

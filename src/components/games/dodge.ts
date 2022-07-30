@@ -1,12 +1,22 @@
 import { GameObj } from 'kaboom';
 
-import { SPEED } from '../constants/player';
+import { SPEED } from '../../constants/player';
+import battleUi from '../battle_ui';
+import { GameOptions } from '.';
 
-const gameOne = (onEnd: () => void) => {
-  wait(0.3, () => {
-    loop(rand(0.1, 0.2), () => {
-      add([sprite('lemon'), scale(3), body(), area(), pos(rand(0, width()), 0), cleanup(), 'object']);
+const dodge = ({ onWin, onLose }: GameOptions) => {
+  const onGameStart = () => {
+    wait(0.3, () => {
+      loop(rand(0.1, 0.2), () => {
+        add([sprite('lemon'), scale(3), body(), area(), pos(rand(0, width()), 0), cleanup(), 'object']);
+      });
     });
+  };
+
+  battleUi({
+    label: 'Dodge !',
+    onStart: onGameStart,
+    onTimeEnd: onWin,
   });
 
   // @ts-ignore
@@ -35,8 +45,8 @@ const gameOne = (onEnd: () => void) => {
 
   mark.onDeath(() => {
     destroy(mark);
-    onEnd();
+    onLose();
   });
 };
 
-export default gameOne;
+export default dodge;

@@ -1,7 +1,7 @@
 type BattleOptions = {
   label: string;
   onStart: () => void;
-  onEnd: () => void;
+  onTimeEnd: () => void;
 };
 
 const TIME = 7;
@@ -21,7 +21,7 @@ const battleUi = (options: BattleOptions) => {
     // @ts-ignore
     origin('center'),
   ]);
-  const timeIndicator = add([rect(width(), 20), pos(0, 0), color(0, 0, 0)]);
+  const timeIndicator = add([rect(width(), 10), pos(0, 0), color(0, 0, 0)]);
 
   wait(1, () => {
     started = true;
@@ -37,7 +37,7 @@ const battleUi = (options: BattleOptions) => {
     timeIndicator.width = (width() * currentTime) / TIME;
 
     if (currentTime <= 0) {
-      options.onEnd();
+      options.onTimeEnd();
     }
   });
 };

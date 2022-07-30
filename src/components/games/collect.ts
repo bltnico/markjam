@@ -1,23 +1,33 @@
 import { GameObj } from 'kaboom';
 
-import { SPEED } from '../constants/player';
-import { FRUITS_SIZE, MARK_SIZE } from '../constants/sprite';
+import { SPEED } from '../../constants/player';
+import { FRUITS_SIZE, MARK_SIZE } from '../../constants/sprite';
+import battleUi from '../battle_ui';
+import { GameOptions } from '.';
 
-const gameTwo = (onEnd: () => void) => {
+const collect = ({ onWin, onLose }: GameOptions) => {
+  const onGameStart = () => {
+    for (let i = 0; i < target; i++) {
+      wait(0.5 * i, () => {
+        add([
+          sprite('lemon'),
+          scale(3),
+          area(),
+          pos(rand(0, width() - FRUITS_SIZE * 3), rand(0, height() - FRUITS_SIZE * 3)),
+          'object',
+        ]);
+      });
+    }
+  };
+
+  battleUi({
+    label: 'Collect !',
+    onStart: onGameStart,
+    onTimeEnd: onLose,
+  });
+
   const target = 7;
   let catched = 0;
-
-  for (let i = 0; i < target; i++) {
-    wait(0.5 * i, () => {
-      add([
-        sprite('lemon'),
-        scale(3),
-        area(),
-        pos(rand(0, width() - FRUITS_SIZE * 3), rand(0, height() - FRUITS_SIZE * 3)),
-        'object',
-      ]);
-    });
-  }
 
   const mark = add([
     sprite('mark'),
@@ -67,9 +77,9 @@ const gameTwo = (onEnd: () => void) => {
     catched++;
 
     if (catched === target) {
-      onEnd();
+      onWin();
     }
   });
 };
 
-export default gameTwo;
+export default collect;
