@@ -4,12 +4,14 @@ import lemonMonster from './../assets/lemon_monster.png';
 import orange from './../assets/orange.png';
 import strawberry from './../assets/strawberry.png';
 import mark from './../assets/mark.png';
+import mark2 from './../assets/mark2.png';
 
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
 loadSprite('orange', orange);
 loadSprite('strawberry', strawberry);
 loadSprite('mark', mark);
+loadSprite('mark2', mark2);
 
 loadSprite('lemonMonster', lemonMonster, {
   sliceX: 25,

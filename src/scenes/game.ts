@@ -1,33 +1,44 @@
 import { SPEED } from '../constants/player';
-import { test2 } from '../levels';
+import { world_2 } from '../levels';
 
 // @ts-ignore
 const game = () => {
-  addLevel(test2, {
+  addLevel(world_2, {
     width: 32,
-    height: 20,
+    height: 32,
     pos: vec2(0, 0),
-    x: () => [rect(32,32), color(255, 0, 0), solid(), area(), 'walls'],
+    x: () => [rect(32,32), color(255, 255, 255), solid(), area(), 'walls'],
     b: () => [rect(32,32), color(0, 255, 0), solid(), area(), 'test'],
-   });
+    n: () => [rect(32,32), color(0, 0, 255), 'nuage'],
+    // v: () => [rect(32,32), color(0, 255, 255), solid(), area(), 'dead'],
+    v: () => [sprite('mark2'), scale(2), solid(), area(), 'enemy']
+  });
+
   const player = add([
     pos(0, 0),
     sprite('mark'),
     scale(2),
-    color(255, 255, 255),
+    health(3),
     area(),
     body(),
     {
       speed: SPEED,
-      dead: false,
     }
   ]);
 
-  // add([rect(width() *2, 10), pos(0, height() - 10), color(255, 255, 255), solid(), area()]);
+  player.onCollide('dead', () => {
+    player.hurt(1);
+  });
+
+  player.onDestroy(() => {
+    go('game');
+  })
 
   onKeyPress('space', () => {
     if (player.isGrounded()) {
       player.jump();
+    } else {
+      player.doubleJump();
     }
   });
 
@@ -39,9 +50,13 @@ const game = () => {
     player.move(+ player.speed, 0);
   });
 
+  player.onDeath(() => {
+    go('game');
+  })
+
   player.onUpdate(() => {
     if (player.pos.x > width()) {
-      camPos(vec2(Math.floor(1000 / width()) * width() + width() / 2, center().y));
+      camPos(vec2(Math.floor(player.pos.x / width()) * width() + width() / 2, center().y));
     } else {
       camPos(center());
     }
