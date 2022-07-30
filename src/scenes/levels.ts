@@ -3,7 +3,7 @@ import './game';
 
 const max_levels = 4;
 
-const LEVELS = ['lemon', 'orange', 'strawberry', 'cherry'];
+const LEVELS = ['lemonMonster', 'orange', 'strawberry', 'cherry'];
 
 const levels = () => {
   let activeLevel: number = 0;
