@@ -1,7 +1,7 @@
 type Dialog = [string, string];
 
 const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
-  play('dialogs');
+  const music = play('dialogs');
 
   let curDialog = 0;
 
@@ -24,6 +24,7 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
 
   onKeyPress('space', () => {
     if (curDialog + 1 === dialogs.length) {
+      music.stop();
       onEnd();
     }
 
