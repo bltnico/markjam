@@ -1,4 +1,5 @@
 import { BATTLE_LEMON_LOSE, BATTLE_LEMON_WIN } from '../constants/dialogs';
+import { BattleState } from '../types/game'
 import battle from '../engine/battle';
 import './boss';
 import './transition';
@@ -17,9 +18,12 @@ const battleScene = (battleState: BattleState = { trophy: 'lemon', coins: 0, tro
 
   battle.onBattleEnd((win: boolean) => {
     music.stop();
+    if (win) {
+      trophies.push(trophy);
+    }
 
     go('dialog', win ? BATTLE_LEMON_WIN : BATTLE_LEMON_LOSE, () => {
-      go('levels');
+      go('levels', gameState);
     });
   });
 };
