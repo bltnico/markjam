@@ -119,13 +119,6 @@ export const PLATFORMER_LEVEL_CONF = {
 		solid(),
 		origin("bot"),
 	],
-	"$": () => [
-		sprite("orange"),
-		area(),
-		pos(0, -9),
-		origin("bot"),
-		"coin",
-	],
 	"^": () => [
 		sprite("peaks"),
 		area(),
@@ -151,4 +144,4 @@ export const PLATFORMER_LEVEL_CONF = {
 		pos(0, -12),
 		"portal",
 	],
-}
+};

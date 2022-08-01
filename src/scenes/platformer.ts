@@ -5,6 +5,7 @@ import './transition';
 
 const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coins: 0, trophies: [] }) => {
 	let _coins = state.coins;
+	console.log(_coins)
 
 	const { trophies, trophy, levelId, music } = state;
 	const platformerState = { ...state, coins: _coins };
@@ -25,7 +26,17 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
   console.log('in lemon', { levelId, coins: _coins, trophies, trophy })
 	gravity(3200)
 
-	addLevel(levels[levelId ?? 0], PLATFORMER_LEVEL_CONF)
+	addLevel(levels[levelId ?? 0], {
+		...PLATFORMER_LEVEL_CONF,
+		"$": () => [
+			sprite(trophy),
+			scale(4),
+			area(),
+			pos(0, -9),
+			origin("bot"),
+			"coin",
+		],
+	});
 
 	const player = add([
 		sprite("mark"),
