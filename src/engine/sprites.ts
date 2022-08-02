@@ -6,6 +6,7 @@ import strawberry from './../assets/strawberry.png';
 import mark from './../assets/mark.png';
 import wall from './../assets/wall.png';
 import ground from './../assets/ground.png';
+import singleGround from './../assets/single-ground.png';
 import peaks from './../assets/peaks.png';
 import thrashMob1 from './../assets/trash_mob_1.png';
 import gate from './../assets/gate.png';
@@ -18,8 +19,16 @@ loadSprite('strawberry', strawberry);
 loadSprite('mark', mark);
 loadSprite('wall', wall);
 loadSprite('ground', ground);
-loadSprite('peaks', peaks);
+loadSprite('singleGround', singleGround);
 loadSprite('gate', gate);
+
+loadSprite('peaks', peaks, {
+  sliceX: 3,
+  sliceY: 1,
+  anims: {
+    active: { from: 0, to: 2, loop: true, speed: 6 },
+  },
+});
 
 loadSprite('lemonMonster', lemonMonster, {
   sliceX: 25,
