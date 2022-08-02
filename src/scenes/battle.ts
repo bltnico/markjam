@@ -1,5 +1,5 @@
 import { BATTLE_LEMON_LOSE, BATTLE_LEMON_WIN } from '../constants/dialogs';
-import { BattleState, GameState } from '../types/game'
+import { BattleState, GameState } from '../types/game';
 import battle from '../engine/battle';
 import './boss';
 import './transition';

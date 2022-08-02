@@ -1,4 +1,4 @@
-import { games } from '../components/games';
+import { Game, games } from '../components/games';
 
 const INITIAL_BOSS_HP = 3;
 const INITIAL_PLAYER_HP = 3;
@@ -6,12 +6,14 @@ const INITIAL_PLAYER_HP = 3;
 class Battle {
   bossHp: number = INITIAL_BOSS_HP;
   playerHp: number = INITIAL_PLAYER_HP;
+  private _gamePlayed: Game[] = [];
   private _onGameEnd: (win: boolean) => void = () => {};
   private _onBattleEnd: (win: boolean) => void = () => {};
 
   private reset() {
     this.bossHp = INITIAL_BOSS_HP;
     this.playerHp = INITIAL_PLAYER_HP;
+    this._gamePlayed = [];
   }
 
   private bossHurt() {
@@ -37,8 +39,17 @@ class Battle {
   }
 
   play() {
-    const game = choose(games) || games[0];
-    game({
+    let game = games[0];
+    const potentialGames = games.filter((game) => !this._gamePlayed.includes(game));
+    if (potentialGames.length === 0) {
+      game = choose(games);
+      this._gamePlayed = [];
+    } else {
+      game = choose(potentialGames);
+      this._gamePlayed.push(game);
+    }
+
+    game.play({
       onWin: () => this.bossHurt(),
       onLose: () => this.playerHurt(),
     });
