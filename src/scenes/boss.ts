@@ -1,7 +1,8 @@
 import { FRUITS_SIZE, MARK_SIZE } from '../constants/sprite';
 import battle from '../engine/battle';
+import { BattleState } from '../types/game';
 
-const boss = (success: boolean) => {
+const boss = (success: boolean, battleState: BattleState) => {
   for (let i = 0; i < battle.playerHp; i++) {
     add([
       //
@@ -21,6 +22,14 @@ const boss = (success: boolean) => {
     ]);
   }
 
+  if (success) {
+    play('lemon_hurt');
+  }
+
+  if (!success) {
+    play('lemon_taunt');
+  }
+
   shake(10);
   // @ts-ignore
   const boss = add([sprite('lemonMonster', { anim: success ? 'hurt' : 'idle' }), scale(5), pos(center()), origin('center')]);
@@ -28,7 +37,7 @@ const boss = (success: boolean) => {
   camScale(vec2(2, 2));
 
   wait(1.5, () => {
-    go('battle');
+    go('battle', battleState);
   });
 };
 

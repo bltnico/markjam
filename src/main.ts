@@ -8,7 +8,7 @@ import './scenes/levels';
 import './scenes/boss';
 
 function start() {
-  go('battle');
+  go('start');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
