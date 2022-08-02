@@ -7,8 +7,8 @@ const LEVELS = ['lemon', 'orange', 'strawberry', 'cherry'];
 
 const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0 }) => {
   let activeLevel: number = 0;
-  let levels = LEVELS.filter(l => !trophies.includes(l));
-  console.log(music, 'coins')
+  let levels = LEVELS.filter((l) => !trophies.includes(l));
+  console.log(music, 'coins');
 
   add([
     text('Fruits saved: ', {
@@ -20,12 +20,7 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
   ]);
 
   for (let i = 0; i < trophies.length; i++) {
-    add([
-      sprite(trophies[i]),
-      scale(2),
-      pos(((FRUITS_SIZE * 2) + 2) * i + 10 + TROPHY_TEXT_WIDTH, 10),
-      fixed(),
-    ]);
+    add([sprite(trophies[i]), scale(2), pos((FRUITS_SIZE * 2 + 2) * i + 10 + TROPHY_TEXT_WIDTH, 10), fixed()]);
   }
 
   function centerCamPos(target: number = 0) {
@@ -35,7 +30,7 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
 
   for (const level of levels) {
     // fruits size * scale * spacing + pos index
-    const x = FRUITS_SIZE * 3 * 2.5 * (levels.findIndex(l => l === level) + 1);
+    const x = FRUITS_SIZE * 3 * 2.5 * (levels.findIndex((l) => l === level) + 1);
     // @ts-ignore
     add([pos(x, 0), sprite(level), scale(3), origin('center'), 'level']);
   }
