@@ -7,7 +7,7 @@ export const k = kaboom({
   height: 640,
   // scale: pixelRatio,
   debug: import.meta.env.DEV,
-  background: [255, 255, 255, 1],
+  background: [28, 27, 27, 1],
 });
 
 export default k;

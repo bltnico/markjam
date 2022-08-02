@@ -18,8 +18,15 @@ loadSprite('strawberry', strawberry);
 loadSprite('mark', mark);
 loadSprite('wall', wall);
 loadSprite('ground', ground);
-loadSprite('peaks', peaks);
 loadSprite('gate', gate);
+
+loadSprite('peaks', peaks, {
+  sliceX: 3,
+  sliceY: 1,
+  anims: {
+    active: { from: 0, to: 2, loop: true, speed: 6 },
+  },
+});
 
 loadSprite('lemonMonster', lemonMonster, {
   sliceX: 25,
