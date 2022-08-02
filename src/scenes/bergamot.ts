@@ -2,6 +2,7 @@ import './dialog';
 import './game';
 import { INTRO } from './../constants/dialogs';
 import late from './../components/late';
+import { GameState } from '../types/game';
 
 const bergamote = () => {
   play('jingle');
@@ -13,7 +14,7 @@ const bergamote = () => {
   // @ts-ignore
   add([text('An original music by Powered Rails', { size: 30 }), pos(center()), origin('center'), late(2), lifespan(4)]);
 
-  wait(4, () => go('dialog', INTRO, () => go('levels')));
+  wait(4, () => go('dialog', INTRO, (state: GameState) => go('levels', state)));
 };
 
 scene('bergamot', bergamote);

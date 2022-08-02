@@ -1,13 +1,32 @@
-import { FRUITS_SIZE } from '../constants/sprite';
+import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
+import { GameState } from '../types/game';
 import './game';
 import './platformer';
 
 const LEVELS = ['lemon', 'orange', 'strawberry', 'cherry'];
 
-const levels = ({ trophies, coins }: { trophies: string[]; coins: number } = { trophies: [], coins: 0 }) => {
+const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0 }) => {
   let activeLevel: number = 0;
   let levels = LEVELS.filter(l => !trophies.includes(l));
-  const music = play('dialogs');
+  console.log(music, 'coins')
+
+  add([
+    text('Fruits saved: ', {
+      size: TROPHY_TEXT_SIZE,
+      width: TROPHY_TEXT_WIDTH,
+    }),
+    pos(0, 10),
+    fixed(),
+  ]);
+
+  for (let i = 0; i < trophies.length; i++) {
+    add([
+      sprite(trophies[i]),
+      scale(2),
+      pos(((FRUITS_SIZE * 2) + 2) * i + 10 + TROPHY_TEXT_WIDTH, 10),
+      fixed(),
+    ]);
+  }
 
   function centerCamPos(target: number = 0) {
     play('click');
@@ -20,7 +39,7 @@ const levels = ({ trophies, coins }: { trophies: string[]; coins: number } = { t
     // @ts-ignore
     add([pos(x, 0), sprite(level), scale(3), origin('center'), 'level']);
   }
-  add([text(`trophies : ${trophies.join(', ')}`, { size: 30 }), pos(200, 0), origin('top')]);
+  // add([text(`trophies : ${trophies.join(', ')}`, { size: 30 }), pos(200, 0), origin('top')]);
 
   centerCamPos();
 
@@ -49,7 +68,7 @@ const levels = ({ trophies, coins }: { trophies: string[]; coins: number } = { t
   });
 
   onKeyPress('space', () => {
-    music.stop();
+    music?.stop();
     go('platformer', { trophy: levels[activeLevel], levelId: 0, trophies, coins, music: play('platform') });
   });
 };

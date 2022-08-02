@@ -22,6 +22,14 @@ const boss = (success: boolean, battleState: BattleState) => {
     ]);
   }
 
+  if (success) {
+    play('lemon_hurt');
+  }
+
+  if (!success) {
+    play('lemon_taunt');
+  }
+
   shake(10);
   // @ts-ignore
   const boss = add([sprite('lemonMonster', { anim: success ? 'hurt' : 'idle' }), scale(5), pos(center()), origin('center')]);

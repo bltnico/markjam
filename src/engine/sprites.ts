@@ -9,6 +9,7 @@ import ground from './../assets/ground.png';
 import peaks from './../assets/peaks.png';
 import thrashMob1 from './../assets/trash_mob_1.png';
 import gate from './../assets/gate.png';
+import oldAnanas from './../assets/old_ananas.png';
 
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
@@ -35,5 +36,13 @@ loadSprite('thrashMob1', thrashMob1, {
   sliceY: 1,
   anims: {
     active: { from: 0, to: 11, loop: true },
+  },
+});
+
+loadSprite('oldAnanas', oldAnanas, {
+  sliceX: 6,
+  sliceY: 1,
+  anims: {
+    talking: { from: 0, to: 5, loop: true },
   },
 });

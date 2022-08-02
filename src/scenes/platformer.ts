@@ -5,11 +5,9 @@ import './transition';
 
 const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coins: 0, trophies: [] }) => {
 	let _coins = state.coins;
-	console.log(_coins)
 
 	const { trophies, trophy, levelId, music } = state;
-	const platformerState = { ...state, coins: _coins };
-  const gameState = { coins: _coins, trophies, music };
+  const gameState = { trophies, music };
 
 	if (music?.isStopped) {
 		music?.play();
@@ -19,12 +17,11 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
 	const levels = PLATFORMER_LEVELS[trophy];
 
 	const execLoseRoutine = () => {
-		go('transition', 'You Lose', () => go('platformer', platformerState));
+		go('transition', 'You Lose', () => go('platformer', state));
 		music?.stop();
 	}
 
-  console.log('in lemon', { levelId, coins: _coins, trophies, trophy })
-	gravity(3200)
+	gravity(3200);
 
 	addLevel(levels[levelId ?? 0], {
 		...PLATFORMER_LEVEL_CONF,
@@ -45,7 +42,7 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
 		scale(2),
 		body(),
 		origin("bot"),
-	])
+	]);
 
 	player.onUpdate(() => {
 		camPos(player.pos)
@@ -53,24 +50,25 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
 		if (player.pos.y >= FALL_DEATH) {
 			execLoseRoutine();
 		}
-	})
+	});
 
 	player.onCollide("danger", () => {
     execLoseRoutine();
-	})
+	});
 
 	player.onCollide("portal", () => {
 		if (levelId + 1 < levels.length) {
 			go("platformer", {
-				...platformerState,
+				...state,
+				coins: _coins,
 				levelId: levelId + 1,
-			})
+			});
 		} else {
 			// @XXX : Levels all completed
 			music?.stop();
-			go("battle", { ...gameState, trophy });
+			go("battle", { ...gameState, trophy, coins: _coins });
 		}
-	})
+	});
 
 	player.onGround((l) => {
 		if (l.is("enemy")) {
@@ -83,46 +81,46 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
 	player.onCollide("enemy", (_: any, col: { isBottom: () => boolean}) => {
 		// @XXX: if it's not from the top, die
 		if (!col.isBottom()) {
- 			execLoseRoutine();;
+ 			execLoseRoutine();
 		}
-	})
+	});
 
 
 	player.onCollide("coin", (c) => {
 		destroy(c);
 		_coins += 1;
 		coinsLabel.text = String(_coins);
-	})
+	});
 
 	const coinsLabel = add([
 		text(String(_coins)),
 		pos(24, 24),
 		fixed(),
-	])
+	]);
 
 	// @XXX jump
 	onKeyPress("space", () => {
 		if (player.isGrounded()) {
 			player.jump(JUMP_FORCE)
 		}
-	})
+	});
 
 	// @XXX base move
 	onKeyDown("left", () => {
 		player.move(-SPEED, 0)
-	})
+	});
 
 	onKeyDown("right", () => {
 		player.move(SPEED, 0)
-	})
+	});
 
 	onKeyPress("down", () => {
 		player.weight = 3
-	})
+	});
 
 	onKeyRelease("down", () => {
 		player.weight = 1
-	})
+	});
 };
 
-scene("platformer", platformer)
+scene("platformer", platformer);

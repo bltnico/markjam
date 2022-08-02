@@ -3,6 +3,7 @@ import { AudioPlay } from "kaboom";
 export interface GameState {
   trophies: string[];
   coins: number;
+  music?: AudioPlay;
 };
 
 export interface BattleState extends GameState {
@@ -10,6 +11,5 @@ export interface BattleState extends GameState {
 };
 
 export interface PlatformerState extends BattleState {
-  music?: AudioPlay;
   levelId: number;
 };

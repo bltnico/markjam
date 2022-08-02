@@ -1,4 +1,5 @@
-type Dialog = [string, string];
+type ExtraSpriteConfig = { anim: string } | undefined;
+type Dialog = [string, string, ExtraSpriteConfig];
 
 const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
   const music = play('dialogs');
@@ -14,9 +15,9 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
 
   function updateDialog() {
     play('talk1');
-    const [char, dialog] = dialogs[curDialog];
+    const [char, dialog, extraConfig] = dialogs[curDialog];
 
-    avatar.use(sprite(char));
+    avatar.use(sprite(char, extraConfig));
     txt.text = dialog;
   }
 
@@ -24,8 +25,11 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
 
   onKeyPress('space', () => {
     if (curDialog + 1 === dialogs.length) {
-      music.stop();
-      onEnd();
+      onEnd({
+        trophies: [],
+        coins: 0,
+        music,
+      });
     }
 
     curDialog = (curDialog + 1) % dialogs.length;
