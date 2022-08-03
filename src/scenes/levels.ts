@@ -1,12 +1,12 @@
 import { GameObj } from 'kaboom';
 import addBackground from '../components/background';
-import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
-import { Trophies } from '../constants/trophies';
+import { FRUITS_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
 import gameState from '../engine/state';
 import { ANIM_TEXT, TEXT } from '../constants/style';
 
 import './game';
 import './platformer';
+import { LEVELS, Trophies, WORLDS_CONFIG } from '../constants/levels';
 
 const levels = () => {
   const { trophies } = gameState;
@@ -15,62 +15,33 @@ const levels = () => {
   layers(['background', 'ui'], 'ui');
   addBackground();
 
-  let levels = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss'].filter((l) => !trophies.includes(l));
-
-  const fruitsSaved = add([
-    text('Fruits saved: ', { ...TEXT, size: 16 }),
-    pos(20, 20),
-    fixed(),
-  ]);
+  const fruitsSaved = add([text('Fruits saved: ', { ...TEXT, size: 16 }), pos(20, 20), fixed()]);
 
   if (trophies.length === 0) {
     destroy(fruitsSaved);
   }
 
   for (let i = 0; i < trophies.length; i++) {
-    add([sprite(trophies[i]), scale(2), pos((FRUITS_SIZE * 2) * i + 20 + TROPHY_TEXT_WIDTH, 15), fixed()]);
+    add([sprite(trophies[i]), scale(2), pos(FRUITS_SIZE * 2 * i + 20 + TROPHY_TEXT_WIDTH, 15), fixed()]);
   }
 
   let bossBox;
-  for (const level of levels) {
-    const index = levels.findIndex((l) => l === level) + 1;
+  for (const level of LEVELS) {
+    const levelPos = WORLDS_CONFIG[level].levelPos;
+    const dir = WORLDS_CONFIG[level].dir;
+    const levelId = WORLDS_CONFIG[level].id;
+    const levelColor = WORLDS_CONFIG[level].levelColor;
+    const bossSprite = WORLDS_CONFIG[level].sprites.boss;
+    const saved = trophies.includes(levelId);
 
-    let levelPos = center();
-    let dir = UP;
-    let levelId = Trophies.LEMON;
-    let levelColor = rgb(0, 0, 0);
-    let saved = false;
-
-    switch (index) {
-      case 1:
-        levelPos = vec2(center().x, center().y - 120);
-        dir = UP;
-        levelId = Trophies.LEMON;
-        levelColor = rgb(226, 204, 91);
-        saved = trophies.includes(Trophies.LEMON);
-        break;
-      case 2:
-        levelPos = vec2(center().x + 120, center().y);
-        dir = RIGHT;
-        levelId = Trophies.ORANGE;
-        levelColor = rgb(239, 137, 62);
-        saved = trophies.includes(Trophies.ORANGE);
-        break;
-      case 3:
-        levelPos = vec2(center().x, center().y + 120);
-        dir = DOWN;
-        levelId = Trophies.STRAWBERRY;
-        levelColor = rgb(209, 49, 51);
-        saved = trophies.includes(Trophies.STRAWBERRY);
-        break;
-      case 4:
-        levelPos = vec2(center().x - 120, center().y);
-        dir = LEFT;
-        levelId = Trophies.CHERRY;
-        levelColor = rgb(254, 48, 130);
-        saved = trophies.includes(Trophies.CHERRY);
-        break;
-    }
+    console.log({
+      levelPos,
+      dir,
+      levelId,
+      levelColor,
+      bossSprite,
+      saved,
+    });
 
     bossBox = add([
       rect(100, 100, { radius: 5 }),
@@ -85,7 +56,7 @@ const levels = () => {
     ]);
 
     // @ts-ignore
-    add([pos(bossBox.pos), sprite(level), scale(5), origin('center'), `${levelId}-sprite`, 'level-sprite', { saved }]);
+    add([pos(bossBox.pos), sprite(bossSprite), scale(5), origin('center'), `${levelId}-sprite`, 'level-sprite', { saved }]);
   }
 
   add([

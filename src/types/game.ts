@@ -1,5 +1,5 @@
 import { AudioPlay } from 'kaboom';
-import { Trophies } from '../constants/trophies';
+import { Trophies } from '../constants/levels';
 
 export interface GameState {
   trophies: Trophies[];

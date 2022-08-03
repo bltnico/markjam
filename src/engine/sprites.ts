@@ -7,7 +7,7 @@ import wall from './../assets/wall.png';
 import ground from './../assets/ground.png';
 import singleGround from './../assets/single-ground.png';
 import peaks from './../assets/peaks.png';
-import thrashMob1 from './../assets/trash_mob_1.png';
+import lemonMob from './../assets/trash_mob_1.png';
 import gate from './../assets/gate.png';
 import oldAnanas from './../assets/old_ananas.png';
 import lemonBoss from './../assets/lemon_boss.png';
@@ -93,7 +93,7 @@ loadSprite('orangeBoss', orangeBoss, {
   },
 });
 
-loadSprite('thrashMob1', thrashMob1, {
+loadSprite('lemonMob', lemonMob, {
   sliceX: 12,
   sliceY: 1,
   anims: {
