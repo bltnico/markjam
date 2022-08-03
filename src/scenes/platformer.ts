@@ -3,16 +3,21 @@ import { PLATFORMER_LEVELS, PLATFORMER_LEVEL_CONF } from '../constants/platforme
 import './transition';
 import gameState from '../engine/state';
 import { GameObj } from 'kaboom';
+import { WORLDS_CONFIG } from '../constants/levels';
+import patrol from '../components/ennemies/patrol';
 
 const platformer = (levelId = 0) => {
   const { music, claimableTrophy } = gameState;
+  const {
+    sprites: { thrashMob },
+    levelColor,
+  } = WORLDS_CONFIG[claimableTrophy];
   if (music?.isStopped) {
     music?.play();
     music.loop();
   }
 
   const levels = PLATFORMER_LEVELS[claimableTrophy];
-  console.log({ levels, claimableTrophy });
 
   const execLoseRoutine = () => {
     player.use(sprite('mark', { anim: 'hurt' }));
@@ -27,6 +32,16 @@ const platformer = (levelId = 0) => {
 
   addLevel(levels[levelId ?? 0], {
     ...PLATFORMER_LEVEL_CONF,
+    '=': () => [
+      rect(64, 64),
+      sprite('ground'),
+      area(),
+      solid(),
+      // origin('bot'),
+      'ground',
+      color(levelColor),
+    ],
+    '>': () => [sprite(thrashMob, { anim: 'active' }), area({ scale: 0.5 }), origin('bot'), scale(4), body(), patrol(), 'enemy'],
     $: () => [sprite(claimableTrophy), scale(4), area(), pos(0, -9), origin('bot'), 'coin'],
   });
 

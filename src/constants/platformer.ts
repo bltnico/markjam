@@ -1,5 +1,5 @@
 import patrol from '../components/ennemies/patrol';
-import { Trophies } from './trophies';
+import { Trophies } from './levels';
 
 export const PLATFORMER_LEVELS = {
   [Trophies.LEMON]: [
@@ -64,7 +64,7 @@ export const PLATFORMER_LEVELS = {
       '                             ',
       '                             ',
       '                             ',
-      '        s                    ',
+      '        >                    ',
       '        =====              $ ',
       '                           $ ',
       '                             ',
@@ -72,13 +72,13 @@ export const PLATFORMER_LEVELS = {
       '                             ',
       '                             ',
       '                             ',
-      '     s    s   ^^   ^^>^^^^^@ ',
+      '     >    >   ^^   ^^>^^^^^@ ',
       '================ ≠ ========= ',
       '      $                     =',
       '      $                     2',
       '      $                      ',
       '      $                      ',
-      '      $            s         ',
+      '      $            >         ',
       '      $       ≠=====   $     ',
       '      =========        $     ',
       '                       $     ',
@@ -86,7 +86,7 @@ export const PLATFORMER_LEVELS = {
       '           $     $     $     ',
       '           $     $     $     ',
       '           $     $     $     ',
-      ' | s    s  $   s $  |  $     ',
+      ' | >    >  $   > $  |  $     ',
       ' ====================  $     ',
       '                             ',
       '                            e',
@@ -139,14 +139,6 @@ export const PLATFORMER_LEVEL_CONF = {
   width: 64,
   height: 64,
   // define each object as a list of components
-  '=': () => [
-    rect(64, 64),
-    sprite('ground'),
-    area(),
-    solid(),
-    // origin('bot'),
-    'ground',
-  ],
   '^': () => [
     sprite('peaks'),
     area(),
@@ -163,16 +155,6 @@ export const PLATFORMER_LEVEL_CONF = {
     solid(),
     'wall',
   ],
-  '>': () => [sprite('thrashMob1', { anim: 'active' }), area({ scale: 0.5 }), origin('bot'), scale(4), body(), patrol(), 'enemy'],
-  s: () => [
-    sprite('strawberryMob'),
-    area({ scale: 0.5 }),
-    // origin('bot'),
-    scale(4),
-    body(),
-    patrol(),
-    'enemy',
-  ],
   '@': () => [
     sprite('gate'),
     area(),
@@ -181,7 +163,4 @@ export const PLATFORMER_LEVEL_CONF = {
     pos(0, -12),
     'portal',
   ],
-  '1': () => [rect(64, 64), color(0, 255, 0), area(), solid(), 'elevatorFrom'],
-  '2': () => [rect(64, 64), color(0, 255, 0), area(), solid(), 'elevatorTo'],
-  e: () => [rect(64, 64), area(), solid(), origin('bot'), body(), color(255, 0, 0), 'elevator'],
 };
