@@ -34,15 +34,6 @@ const levels = () => {
     const bossSprite = WORLDS_CONFIG[level].sprites.boss;
     const saved = trophies.includes(levelId);
 
-    console.log({
-      levelPos,
-      dir,
-      levelId,
-      levelColor,
-      bossSprite,
-      saved,
-    });
-
     bossBox = add([
       rect(100, 100, { radius: 5 }),
       color(255, 255, 255),

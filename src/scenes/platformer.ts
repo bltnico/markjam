@@ -18,7 +18,6 @@ const platformer = (levelId = 0) => {
   }
 
   const levels = PLATFORMER_LEVELS[claimableTrophy];
-  console.log({ levels, claimableTrophy });
 
   const execLoseRoutine = () => {
     player.use(sprite('mark', { anim: 'hurt' }));
