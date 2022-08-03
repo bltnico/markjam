@@ -16,7 +16,7 @@ const bergamote = () => {
   add([text('An original music by Powered Rails', ANIM_TEXT), pos(center()), origin('center'), late(2), lifespan(4)]);
 
   wait(4, () => {
-    gameState.changeMusic(play('dialogs'));
+    gameState.changeMusic(play('dialogs', { loop: true }));
 
     go('dialog', INTRO, () => {
       go('levels');
