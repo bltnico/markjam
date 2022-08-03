@@ -28,12 +28,12 @@ loadSprite('gate', gate);
 loadSprite('background', background);
 
 loadSprite('mark', mark, {
-  sliceX: 5,
+  sliceX: 7,
   sliceY: 1,
   anims: {
     idle: { from: 0, to: 1, loop: true },
-    jump: { from: 2, to: 3 },
-    hurt: 4,
+    jump: { from: 2, to: 5 },
+    hurt: 6,
   },
 });
 
