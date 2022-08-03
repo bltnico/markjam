@@ -9,7 +9,7 @@ class State implements GameState {
   claimableTrophy: GameState['claimableTrophy'] = Trophies.LEMON;
 
   addCoin() {
-    this.coins+= 1;
+    this.coins += 1;
   }
 
   loseCoins() {

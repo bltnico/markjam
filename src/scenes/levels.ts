@@ -15,7 +15,7 @@ const levels = () => {
   layers(['background', 'ui'], 'ui');
   addBackground();
 
-  let levels = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss',].filter((l) => !trophies.includes(l));
+  let levels = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss'].filter((l) => !trophies.includes(l));
 
   add([
     text('Fruits saved: ', {

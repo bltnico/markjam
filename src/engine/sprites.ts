@@ -17,7 +17,6 @@ import orangeBoss from './../assets/orange_boss.png';
 import background from './../assets/background_test.png';
 import strawberryMob from './../assets/strawberries_mob.png';
 
-
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
 loadSprite('orange', orange);
@@ -111,5 +110,5 @@ loadSprite('strawberryMob', strawberryMob, {
   sliceY: 1,
   anims: {
     active: { from: 0, to: 7, loop: true },
-  }
+  },
 });

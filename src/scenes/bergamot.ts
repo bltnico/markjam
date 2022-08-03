@@ -19,8 +19,8 @@ const bergamote = () => {
     gameState.changeMusic(play('dialogs'));
 
     go('dialog', INTRO, () => {
-      go('levels')
-    })
+      go('levels');
+    });
   });
 };
 

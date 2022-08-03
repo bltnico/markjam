@@ -3,6 +3,6 @@ export enum Trophies {
   ORANGE = 'orange',
   STRAWBERRY = 'strawberry',
   CHERRY = 'cherry',
-};
+}
 
 export const LEVELS = Object.values(Trophies);

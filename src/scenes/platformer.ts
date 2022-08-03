@@ -12,7 +12,7 @@ const platformer = (levelId = 0) => {
   }
 
   const levels = PLATFORMER_LEVELS[claimableTrophy];
-  console.log({levels, claimableTrophy})
+  console.log({ levels, claimableTrophy });
 
   const execLoseRoutine = () => {
     player.use(sprite('mark', { anim: 'hurt' }));
@@ -20,7 +20,6 @@ const platformer = (levelId = 0) => {
       go('transition', 'You Lose', () => go('platformer'));
       gameState.loseCoins();
       music?.stop();
-
     });
   };
 
