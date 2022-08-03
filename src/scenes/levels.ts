@@ -1,7 +1,7 @@
 import { GameObj } from 'kaboom';
 import addBackground from '../components/background';
 import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
-import { LEVELS, Trophies } from '../constants/trophies';
+import { Trophies } from '../constants/trophies';
 import gameState from '../engine/state';
 import { ANIM_TEXT, TEXT } from '../constants/style';
 
@@ -15,7 +15,7 @@ const levels = () => {
   layers(['background', 'ui'], 'ui');
   addBackground();
 
-  let levels = LEVELS.filter((l) => !trophies.includes(l));
+  let levels = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss',].filter((l) => !trophies.includes(l));
 
   add([
     text('Fruits saved: ', {
