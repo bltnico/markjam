@@ -17,17 +17,18 @@ const levels = () => {
 
   let levels = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss'].filter((l) => !trophies.includes(l));
 
-  add([
-    text('Fruits saved: ', {
-      size: TROPHY_TEXT_SIZE,
-      width: TROPHY_TEXT_WIDTH,
-    }),
-    pos(0, 10),
+  const fruitsSaved = add([
+    text('Fruits saved: ', { ...TEXT, size: 16 }),
+    pos(20, 20),
     fixed(),
   ]);
 
+  if (trophies.length === 0) {
+    destroy(fruitsSaved);
+  }
+
   for (let i = 0; i < trophies.length; i++) {
-    add([sprite(trophies[i]), scale(2), pos((FRUITS_SIZE * 2 + 2) * i + 10 + TROPHY_TEXT_WIDTH, 10), fixed()]);
+    add([sprite(trophies[i]), scale(2), pos((FRUITS_SIZE * 2) * i + 20 + TROPHY_TEXT_WIDTH, 15), fixed()]);
   }
 
   let bossBox;
@@ -38,6 +39,7 @@ const levels = () => {
     let dir = UP;
     let levelId = Trophies.LEMON;
     let levelColor = rgb(0, 0, 0);
+    let saved = false;
 
     switch (index) {
       case 1:
@@ -45,24 +47,28 @@ const levels = () => {
         dir = UP;
         levelId = Trophies.LEMON;
         levelColor = rgb(226, 204, 91);
+        saved = trophies.includes(Trophies.LEMON);
         break;
       case 2:
         levelPos = vec2(center().x + 120, center().y);
         dir = RIGHT;
         levelId = Trophies.ORANGE;
         levelColor = rgb(239, 137, 62);
+        saved = trophies.includes(Trophies.ORANGE);
         break;
       case 3:
         levelPos = vec2(center().x, center().y + 120);
         dir = DOWN;
         levelId = Trophies.STRAWBERRY;
         levelColor = rgb(209, 49, 51);
+        saved = trophies.includes(Trophies.STRAWBERRY);
         break;
       case 4:
         levelPos = vec2(center().x - 120, center().y);
         dir = LEFT;
         levelId = Trophies.CHERRY;
         levelColor = rgb(254, 48, 130);
+        saved = trophies.includes(Trophies.CHERRY);
         break;
     }
 
@@ -75,11 +81,11 @@ const levels = () => {
       pos(levelPos),
       'level',
       levelId,
-      { dir, level: levelId, outlineColor: levelColor },
+      { dir, level: levelId, outlineColor: levelColor, saved },
     ]);
 
     // @ts-ignore
-    add([pos(bossBox.pos), sprite(level), scale(5), origin('center'), `${levelId}-sprite`, 'level-sprite']);
+    add([pos(bossBox.pos), sprite(level), scale(5), origin('center'), `${levelId}-sprite`, 'level-sprite', { saved }]);
   }
 
   add([
@@ -128,20 +134,20 @@ const levels = () => {
 
   function resetLevelStyle() {
     every('level', (level) => {
-      level.color = rgb(127, 140, 141);
+      level.color = level.saved ? level.outlineColor : rgb(127, 140, 141);
       level.scale = 1;
       level.use(outline(5, BLACK));
     });
 
     every('level-sprite', (levelSprite) => {
       levelSprite.scale = 4;
-      levelSprite.play('freeze');
+      levelSprite.play(levelSprite.saved ? 'death' : 'freeze');
     });
   }
 
   function activeLevelStyle(level?: GameObj) {
     play('click');
-    if (level) {
+    if (level && !level.saved) {
       level.color = rgb(255, 255, 255);
       level.scale = 1.2;
       level.use(outline(5, level.outlineColor));

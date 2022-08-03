@@ -50,6 +50,7 @@ loadSprite('lemonBoss', lemonBoss, {
   sliceY: 1,
   anims: {
     freeze: 0,
+    death: 23,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -61,6 +62,7 @@ loadSprite('cherryBoss', cherryBoss, {
   sliceY: 1,
   anims: {
     freeze: 0,
+    death: 23,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -72,6 +74,7 @@ loadSprite('strawberryBoss', strawberryBoss, {
   sliceY: 1,
   anims: {
     freeze: 0,
+    death: 23,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -83,6 +86,7 @@ loadSprite('orangeBoss', orangeBoss, {
   sliceY: 1,
   anims: {
     freeze: 0,
+    death: 23,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
