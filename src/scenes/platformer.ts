@@ -17,8 +17,11 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
   const levels = PLATFORMER_LEVELS[trophy];
 
   const execLoseRoutine = () => {
-    go('transition', 'You Lose', () => go('platformer', state));
-    music?.stop();
+    player.use(sprite('mark', { anim: 'hurt' }));
+    wait(0.5, () => {
+      go('transition', 'You Lose', () => go('platformer', state));
+      music?.stop();
+    });
   };
 
   gravity(3200);
@@ -28,7 +31,7 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
     $: () => [sprite(trophy), scale(4), area(), pos(0, -9), origin('bot'), 'coin'],
   });
 
-  const player = add([sprite('mark'), pos(0, 0), area(), scale(2), body(), origin('bot')]);
+  const player = add([sprite('mark', { anim: 'idle' }), pos(0, 0), area(), scale(2), body(), origin('bot')]);
 
   player.onUpdate(() => {
     camPos(player.pos);
@@ -82,7 +85,13 @@ const platformer = (state: PlatformerState = { trophy: 'lemon', levelId: 0, coin
   // @XXX jump
   onKeyPress('space', () => {
     if (player.isGrounded()) {
+      player.use(sprite('mark', { anim: 'jump' }));
+      player.use(scale(2.5));
       player.jump(JUMP_FORCE);
+      wait(0.3, () => {
+        player.use(scale(2));
+        player.use(sprite('mark', { anim: 'idle' }));
+      });
     }
   });
 

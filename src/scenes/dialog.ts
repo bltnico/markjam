@@ -1,3 +1,5 @@
+import { ANIM_TEXT, TEXT } from '../constants/style';
+
 type ExtraSpriteConfig = { anim: string } | undefined;
 type Dialog = [string, string, ExtraSpriteConfig];
 
@@ -7,11 +9,25 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
   let curDialog = 0;
 
   // @ts-ignore
-  const textbox = add([rect(width() - 200, 120, { radius: 20 }), origin('center'), pos(center().x, height() - 100), outline(2)]);
+  const textbox = add([
+    rect(width() - 200, 120, { radius: 5 }),
+    origin('center'),
+    pos(center().x, height() - 150),
+    outline(2, WHITE),
+    color(0, 0, 0),
+  ]);
   // @ts-ignore
-  const txt = add([text('', { size: 32, width: width() - 230 }), pos(textbox.pos), origin('center')]);
+  const txt = add([text('', { ...TEXT, width: width() - 230 }), pos(textbox.pos), origin('center')]);
   // @ts-ignore
-  const avatar = add([scale(3), origin('center'), pos(center().sub(0, 50))]);
+  const avatar = add([scale(5), origin('center'), pos(center().sub(0, 50))]);
+
+  add([
+    //
+    text('press space', { ...ANIM_TEXT, size: 18, width: width() - 230 }),
+    // @ts-ignore
+    origin('center'),
+    pos(center().x, height() - 50),
+  ]);
 
   function updateDialog() {
     play('talk1');
