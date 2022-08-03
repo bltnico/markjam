@@ -1,14 +1,12 @@
 import { BATTLE_LEMON_LOSE, BATTLE_LEMON_WIN } from '../constants/dialogs';
-import { BattleState, GameState } from '../types/game';
 import addBackground from '../components/background';
 import battle from '../engine/battle';
 import './boss';
 import './transition';
+import gameState from '../engine/state';
 
-const battleScene = (battleState: BattleState = { trophy: 'lemon', coins: 0, trophies: [] }) => {
+const battleScene = () => {
   const music = play('game');
-  const { trophy, ...gameState } = battleState;
-  const { trophies } = gameState;
 
   addBackground();
 
@@ -16,17 +14,17 @@ const battleScene = (battleState: BattleState = { trophy: 'lemon', coins: 0, tro
 
   battle.onGameEnd((win: boolean) => {
     music.stop();
-    go('boss', win, battleState);
+    go('boss', win);
   });
 
   battle.onBattleEnd((win: boolean) => {
     music.stop();
     if (win) {
-      trophies.push(trophy);
+      gameState.winTrophy();
     }
 
-    go('dialog', win ? BATTLE_LEMON_WIN : BATTLE_LEMON_LOSE, ({ music }: GameState) => {
-      go('levels', { ...gameState, music });
+    go('dialog', win ? BATTLE_LEMON_WIN : BATTLE_LEMON_LOSE, () => {
+      go('levels');
     });
   });
 };

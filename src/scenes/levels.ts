@@ -1,18 +1,19 @@
 import { GameObj } from 'kaboom';
 import addBackground from '../components/background';
 import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
+import { LEVELS } from '../constants/trophies';
+import gameState from '../engine/state';
 import { ANIM_TEXT, TEXT } from '../constants/style';
-import { GameState } from '../types/game';
+
 import './game';
 import './platformer';
 
-const LEVELS = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss'];
-
-const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0 }) => {
+const levels = () => {
+  const { trophies } = gameState;
+  let activeLevel: number = 0;
   layers(['background', 'ui'], 'ui');
   addBackground();
 
-  let activeLevel = add([{ level: '' }]);
   let levels = LEVELS.filter((l) => !trophies.includes(l));
 
   add([
@@ -184,8 +185,10 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
       return;
     }
 
-    music?.stop();
-    go('platformer', { trophy: activeLevel.level, levelId: 0, trophies, coins, music: play('platform') });
+    gameState.changeMusic(play('platform'));
+    gameState.claimTrophy(levels[activeLevel]);
+
+    go('platformer');
   });
 };
 

@@ -1,11 +1,7 @@
-import addBackground from '../components/background';
 import { FRUITS_SIZE, MARK_SIZE } from '../constants/sprite';
 import battle from '../engine/battle';
-import { BattleState } from '../types/game';
 
-const boss = (success: boolean, battleState: BattleState) => {
-  addBackground();
-
+const boss = (success: boolean) => {
   for (let i = 0; i < battle.playerHp; i++) {
     add([
       //
@@ -40,7 +36,7 @@ const boss = (success: boolean, battleState: BattleState) => {
   camScale(vec2(2, 2));
 
   wait(1.5, () => {
-    go('battle', battleState);
+    go('battle');
   });
 };
 

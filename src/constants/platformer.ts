@@ -1,19 +1,20 @@
 import patrol from '../components/ennemies/patrol';
+import { Trophies } from './trophies';
 
 export const PLATFORMER_LEVELS = {
-  lemon: [
+  [Trophies.LEMON]: [
     [
       '                          $',
       '                           ',
       '                          $',
       '                          $',
       '                          $',
-      's          $$             $',
-      's        ssss             $',
-      's    >                s   $',
-      's                     s    ',
-      's    > ^^      s >    s   @',
-      's==========================',
+      '           $$             $',
+      '         ====             $',
+      '     >                |   $',
+      '                      |    ',
+      '     > ^^      = >    |   @',
+      '===========================',
     ],
     [
       '     $    $    $    $     $',
@@ -27,7 +28,7 @@ export const PLATFORMER_LEVELS = {
       '===========================',
     ],
   ],
-  orange: [
+  [Trophies.ORANGE]: [
     [
       '                          $',
       '                           ',
@@ -53,20 +54,46 @@ export const PLATFORMER_LEVELS = {
       '===========================',
     ],
   ],
-  strawberry: [
-    [
-      '                          $',
-      '                           ',
-      '                          $',
-      '                          $',
-      '                          $',
-      '           $$             $',
-      '         ====             $',
-      '     >                =   $',
-      '                      =    ',
-      '     > ^^      = >    =   @',
-      '===========================',
-    ],
+  [Trophies.STRAWBERRY]: [
+      [
+        '               $$$$$$        ',
+        '               ======        ',
+        '                             ',
+        '       @                     ',
+        '                             ',
+        '                             ',
+        '                             ',
+        '                             ',
+        '        s                    ',
+        '        =====              $ ',
+        '                           $ ',
+        '                             ',
+        '                             ',
+        '                             ',
+        '                             ',
+        '                             ',
+        '     s    s   ^^   ^^>^^^^^@ ',
+        '================ ≠ ========= ',
+        '      $                     =',
+        '      $                     2',
+        '      $                      ',
+        '      $                      ',
+        '      $            s         ',
+        '      $       ≠=====   $     ',
+        '      =========        $     ',
+        '                       $     ',
+        '           $     $     $     ',
+        '           $     $     $     ',
+        '           $     $     $     ',
+        '           $     $     $     ',
+        ' | s    s  $   s $  |  $     ',
+        ' ====================  $     ',
+        '                             ',
+        '                            e',
+        '                            1',
+        '                      ===   =',
+        '                         ===='
+      ],
     [
       '     $    $    $    $     $',
       '     $    $    $    $     $',
@@ -79,7 +106,7 @@ export const PLATFORMER_LEVELS = {
       '===========================',
     ],
   ],
-  cherry: [
+  [Trophies.CHERRY]: [
     [
       '                          $',
       '                           ',
@@ -108,13 +135,81 @@ export const PLATFORMER_LEVELS = {
 };
 
 export const PLATFORMER_LEVEL_CONF = {
-  // grid size
-  width: 64,
-  height: 64,
-  // define each object as a list of components
-  '=': () => [sprite('ground'), area(), solid(), origin('bot')],
-  s: () => [sprite('singleGround'), area(), solid(), origin('bot')],
-  '^': () => [sprite('peaks', { anim: 'active' }), area(), solid(), scale(4), origin('bot'), 'danger'],
-  '>': () => [sprite('thrashMob1', { anim: 'active' }), area({ scale: 0.5 }), origin('bot'), scale(4), body(), patrol(), 'enemy'],
-  '@': () => [sprite('gate'), area(), scale(4), origin('bot'), pos(0, -12), 'portal'],
+	// grid size
+	width: 64,
+	height: 64,
+	// define each object as a list of components
+	'=': () => [
+    rect(64, 64),
+    sprite('ground'),
+		area(),
+		solid(),
+		// origin('bot'),
+    'ground'
+	],
+	'^': () => [
+		sprite('peaks'),
+		area(),
+		solid(),
+		scale(4),
+		// origin('bot'),
+		'danger',
+	],
+  '|': () => [
+    sprite('wall'),
+    area(),
+		// origin('bot'),
+		scale(4),
+    solid(),
+		'wall',
+  ],
+	'>': () => [
+		sprite('thrashMob1', { anim: 'active' }),
+    area({ scale: 0.5 }),
+		origin('bot'),
+		scale(4),
+		body(),
+		patrol(),
+		'enemy',
+	],
+	's': () => [
+		sprite('strawberryMob'),
+    area({ scale: 0.5 }),
+		// origin('bot'),
+		scale(4),
+		body(),
+		patrol(),
+		'enemy',
+	],
+	'@': () => [
+		sprite('gate'),
+		area(),
+		scale(4),
+		// origin('bot'),
+		pos(0, -12),
+		'portal',
+	],
+  '1': () => [
+    rect(64, 64),
+    color(0, 255, 0),
+		area(),
+		solid(),
+    'elevatorFrom',
+  ],
+  '2': () => [
+    rect(64, 64),
+    color(0, 255, 0),
+		area(),
+		solid(),
+    'elevatorTo',
+  ],
+  'e': () => [
+    rect(64, 64),
+		area(),
+		solid(),
+		origin('bot'),
+		body(),
+    color(255, 0, 0),
+    'elevator',
+  ],
 };
