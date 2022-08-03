@@ -98,7 +98,7 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
 
   add([
     //
-    text('use arrow keys', { ...ANIM_TEXT, size: 18 }),
+    text('use arrow keys and press space to start', { ...ANIM_TEXT, size: 18 }),
     // @ts-ignore
     origin('center'),
     pos(center().x, height() - 50),
@@ -180,6 +180,10 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
   });
 
   onKeyPress('space', () => {
+    if (!activeLevel.level) {
+      return;
+    }
+
     music?.stop();
     go('platformer', { trophy: activeLevel.level, levelId: 0, trophies, coins, music: play('platform') });
   });
