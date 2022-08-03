@@ -6,9 +6,10 @@ import './scenes/start';
 import './scenes/battle';
 import './scenes/levels';
 import './scenes/boss';
+import './scenes/credit';
 
 function start() {
-  go('start');
+  go('credit');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
