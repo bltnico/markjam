@@ -1,7 +1,7 @@
 import { GameObj } from 'kaboom';
 import addBackground from '../components/background';
 import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
-import { LEVELS } from '../constants/trophies';
+import { LEVELS, Trophies } from '../constants/trophies';
 import gameState from '../engine/state';
 import { ANIM_TEXT, TEXT } from '../constants/style';
 
@@ -10,7 +10,8 @@ import './platformer';
 
 const levels = () => {
   const { trophies } = gameState;
-  let activeLevel: number = 0;
+  let activeLevel = add([{ level: '' }]);
+
   layers(['background', 'ui'], 'ui');
   addBackground();
 
@@ -35,32 +36,32 @@ const levels = () => {
 
     let levelPos = center();
     let dir = UP;
-    let levelId = 'lemon';
+    let levelId = Trophies.LEMON;
     let levelColor = rgb(0, 0, 0);
 
     switch (index) {
       case 1:
         levelPos = vec2(center().x, center().y - 120);
         dir = UP;
-        levelId = 'lemon';
+        levelId = Trophies.LEMON;
         levelColor = rgb(226, 204, 91);
         break;
       case 2:
         levelPos = vec2(center().x + 120, center().y);
         dir = RIGHT;
-        levelId = 'orange';
+        levelId = Trophies.ORANGE;
         levelColor = rgb(239, 137, 62);
         break;
       case 3:
         levelPos = vec2(center().x, center().y + 120);
         dir = DOWN;
-        levelId = 'strawberry';
+        levelId = Trophies.STRAWBERRY;
         levelColor = rgb(209, 49, 51);
         break;
       case 4:
         levelPos = vec2(center().x - 120, center().y);
         dir = LEFT;
-        levelId = 'cherry';
+        levelId = Trophies.CHERRY;
         levelColor = rgb(254, 48, 130);
         break;
     }
@@ -186,7 +187,7 @@ const levels = () => {
     }
 
     gameState.changeMusic(play('platform'));
-    gameState.claimTrophy(levels[activeLevel]);
+    gameState.claimTrophy(activeLevel.level as Trophies);
 
     go('platformer');
   });
