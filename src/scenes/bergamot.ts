@@ -2,8 +2,8 @@ import './dialog';
 import './game';
 import { INTRO } from './../constants/dialogs';
 import late from './../components/late';
-import { GameState } from '../types/game';
 import { ANIM_TEXT } from '../constants/style';
+import gameState from '../engine/state';
 
 const bergamote = () => {
   play('jingle');
@@ -15,7 +15,13 @@ const bergamote = () => {
   // @ts-ignore
   add([text('An original music by Powered Rails', ANIM_TEXT), pos(center()), origin('center'), late(2), lifespan(4)]);
 
-  wait(4, () => go('dialog', INTRO, (state: GameState) => go('levels', state)));
+  wait(4, () => {
+    gameState.changeMusic(play('dialogs'));
+
+    go('dialog', INTRO, () => {
+      go('levels');
+    });
+  });
 };
 
 scene('bergamot', bergamote);

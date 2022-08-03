@@ -1,15 +1,13 @@
-import { AudioPlay } from "kaboom";
+import { AudioPlay } from 'kaboom';
+import { Trophies } from '../constants/trophies';
 
 export interface GameState {
-  trophies: string[];
+  trophies: Trophies[];
   coins: number;
   music?: AudioPlay;
-};
+  claimableTrophy: Trophies;
+}
 
-export interface BattleState extends GameState {
-  trophy: 'lemon' | 'cherry' | 'orange' | 'strawberry';
-};
-
-export interface PlatformerState extends BattleState {
+export interface PlatformerState extends GameState {
   levelId: number;
-};
+}

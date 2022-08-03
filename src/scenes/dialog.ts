@@ -7,8 +7,6 @@ type Dialog = [string, string, ExtraSpriteConfig];
 const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
   addBackground();
 
-  const music = play('dialogs');
-
   let curDialog = 0;
 
   // @ts-ignore
@@ -44,11 +42,7 @@ const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
 
   onKeyPress('space', () => {
     if (curDialog + 1 === dialogs.length) {
-      onEnd({
-        trophies: [],
-        coins: 0,
-        music,
-      });
+      onEnd();
     }
 
     curDialog = (curDialog + 1) % dialogs.length;

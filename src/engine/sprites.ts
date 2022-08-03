@@ -15,6 +15,7 @@ import strawberryBoss from './../assets/strawberry_boss.png';
 import cherryBoss from './../assets/cherry_boss.png';
 import orangeBoss from './../assets/orange_boss.png';
 import background from './../assets/background_test.png';
+import strawberryMob from './../assets/strawberries_mob.png';
 
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
@@ -101,5 +102,13 @@ loadSprite('oldAnanas', oldAnanas, {
   sliceY: 1,
   anims: {
     talking: { from: 0, to: 5, loop: true },
+  },
+});
+
+loadSprite('strawberryMob', strawberryMob, {
+  sliceX: 8,
+  sliceY: 1,
+  anims: {
+    active: { from: 0, to: 7, loop: true },
   },
 });
