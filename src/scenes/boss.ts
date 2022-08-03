@@ -15,7 +15,7 @@ const boss = (success: boolean, battleState: BattleState) => {
   for (let i = 0; i < battle.bossHp; i++) {
     add([
       //
-      sprite('lemonMonster'),
+      sprite('lemonBoss'),
       scale(2),
       pos(width() - FRUITS_SIZE * 2 * i - 2 - FRUITS_SIZE * 2, 10),
       fixed(),
@@ -32,7 +32,7 @@ const boss = (success: boolean, battleState: BattleState) => {
 
   shake(10);
   // @ts-ignore
-  const boss = add([sprite('lemonMonster', { anim: success ? 'hurt' : 'idle' }), scale(5), pos(center()), origin('center')]);
+  const boss = add([sprite('lemonBoss', { anim: success ? 'hurt' : 'idle' }), scale(5), pos(center()), origin('center')]);
   camPos(boss.pos);
   camScale(vec2(2, 2));
 

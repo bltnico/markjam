@@ -1,6 +1,5 @@
 import cherry from './../assets/cherry.png';
 import lemon from './../assets/lemon.png';
-import lemonMonster from './../assets/lemon_monster.png';
 import orange from './../assets/orange.png';
 import strawberry from './../assets/strawberry.png';
 import mark from './../assets/mark.png';
@@ -11,16 +10,31 @@ import peaks from './../assets/peaks.png';
 import thrashMob1 from './../assets/trash_mob_1.png';
 import gate from './../assets/gate.png';
 import oldAnanas from './../assets/old_ananas.png';
+import lemonBoss from './../assets/lemon_boss.png';
+import strawberryBoss from './../assets/strawberry_boss.png';
+import cherryBoss from './../assets/cherry_boss.png';
+import orangeBoss from './../assets/orange_boss.png';
+import background from './../assets/background.png';
 
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
 loadSprite('orange', orange);
 loadSprite('strawberry', strawberry);
-loadSprite('mark', mark);
 loadSprite('wall', wall);
 loadSprite('ground', ground);
 loadSprite('singleGround', singleGround);
 loadSprite('gate', gate);
+loadSprite('background', background);
+
+loadSprite('mark', mark, {
+  sliceX: 5,
+  sliceY: 1,
+  anims: {
+    idle: { from: 0, to: 1, loop: true },
+    jump: { from: 2, to: 3 },
+    hurt: 4,
+  },
+});
 
 loadSprite('peaks', peaks, {
   sliceX: 3,
@@ -30,7 +44,37 @@ loadSprite('peaks', peaks, {
   },
 });
 
-loadSprite('lemonMonster', lemonMonster, {
+loadSprite('lemonBoss', lemonBoss, {
+  sliceX: 25,
+  sliceY: 1,
+  anims: {
+    idle: { from: 0, to: 7, loop: true },
+    active: { from: 8, to: 15 },
+    hurt: { from: 16, to: 24, loop: true },
+  },
+});
+
+loadSprite('cherryBoss', cherryBoss, {
+  sliceX: 25,
+  sliceY: 1,
+  anims: {
+    idle: { from: 0, to: 7, loop: true },
+    active: { from: 8, to: 15 },
+    hurt: { from: 16, to: 24, loop: true },
+  },
+});
+
+loadSprite('strawberryBoss', strawberryBoss, {
+  sliceX: 25,
+  sliceY: 1,
+  anims: {
+    idle: { from: 0, to: 7, loop: true },
+    active: { from: 8, to: 15 },
+    hurt: { from: 16, to: 24, loop: true },
+  },
+});
+
+loadSprite('orangeBoss', orangeBoss, {
   sliceX: 25,
   sliceY: 1,
   anims: {
