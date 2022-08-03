@@ -14,7 +14,7 @@ import lemonBoss from './../assets/lemon_boss.png';
 import strawberryBoss from './../assets/strawberry_boss.png';
 import cherryBoss from './../assets/cherry_boss.png';
 import orangeBoss from './../assets/orange_boss.png';
-import background from './../assets/background.png';
+import background from './../assets/background_test.png';
 
 loadSprite('cherry', cherry);
 loadSprite('lemon', lemon);
@@ -48,6 +48,7 @@ loadSprite('lemonBoss', lemonBoss, {
   sliceX: 25,
   sliceY: 1,
   anims: {
+    freeze: 0,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -58,6 +59,7 @@ loadSprite('cherryBoss', cherryBoss, {
   sliceX: 25,
   sliceY: 1,
   anims: {
+    freeze: 0,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -68,6 +70,7 @@ loadSprite('strawberryBoss', strawberryBoss, {
   sliceX: 25,
   sliceY: 1,
   anims: {
+    freeze: 0,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },
@@ -78,6 +81,7 @@ loadSprite('orangeBoss', orangeBoss, {
   sliceX: 25,
   sliceY: 1,
   anims: {
+    freeze: 0,
     idle: { from: 0, to: 7, loop: true },
     active: { from: 8, to: 15 },
     hurt: { from: 16, to: 24, loop: true },

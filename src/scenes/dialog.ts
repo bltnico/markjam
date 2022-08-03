@@ -1,9 +1,12 @@
+import addBackground from '../components/background';
 import { ANIM_TEXT, TEXT } from '../constants/style';
 
 type ExtraSpriteConfig = { anim: string } | undefined;
 type Dialog = [string, string, ExtraSpriteConfig];
 
 const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
+  addBackground();
+
   const music = play('dialogs');
 
   let curDialog = 0;

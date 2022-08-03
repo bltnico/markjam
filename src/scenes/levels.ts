@@ -1,4 +1,5 @@
 import { GameObj } from 'kaboom';
+import addBackground from '../components/background';
 import { FRUITS_SIZE, TROPHY_TEXT_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
 import { ANIM_TEXT, TEXT } from '../constants/style';
 import { GameState } from '../types/game';
@@ -9,18 +10,10 @@ const LEVELS = ['lemonBoss', 'orangeBoss', 'strawberryBoss', 'cherryBoss'];
 
 const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0 }) => {
   layers(['background', 'ui'], 'ui');
+  addBackground();
 
   let activeLevel = add([{ level: '' }]);
   let levels = LEVELS.filter((l) => !trophies.includes(l));
-
-  add([
-    sprite('background'),
-    pos(center()),
-    // @ts-ignore
-    origin('center'),
-    layer('background'),
-    opacity(0.1),
-  ]);
 
   add([
     text('Fruits saved: ', {
@@ -42,44 +35,49 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
     let levelPos = center();
     let dir = UP;
     let levelId = 'lemon';
+    let levelColor = rgb(0, 0, 0);
+
     switch (index) {
       case 1:
         levelPos = vec2(center().x, center().y - 120);
         dir = UP;
         levelId = 'lemon';
+        levelColor = rgb(226, 204, 91);
         break;
       case 2:
         levelPos = vec2(center().x + 120, center().y);
         dir = RIGHT;
         levelId = 'orange';
+        levelColor = rgb(239, 137, 62);
         break;
       case 3:
         levelPos = vec2(center().x, center().y + 120);
         dir = DOWN;
         levelId = 'strawberry';
+        levelColor = rgb(209, 49, 51);
         break;
       case 4:
         levelPos = vec2(center().x - 120, center().y);
         dir = LEFT;
         levelId = 'cherry';
+        levelColor = rgb(254, 48, 130);
         break;
     }
 
     bossBox = add([
       rect(100, 100, { radius: 5 }),
       color(255, 255, 255),
-      outline(5, BLACK),
+      outline(5, levelColor),
       // @ts-ignore
       origin('center'),
       pos(levelPos),
-      opacity(1),
       'level',
       levelId,
-      { dir, level: levelId },
+      { dir, level: levelId, outlineColor: levelColor },
     ]);
 
     // @ts-ignore
-    add([pos(bossBox.pos), sprite(level), scale(5), origin('center')]);
+    add([pos(bossBox.pos), sprite(level), scale(5), origin('center'), `${levelId}-sprite`, 'level-sprite']);
   }
 
   add([
@@ -128,17 +126,30 @@ const levels = ({ trophies, coins, music }: GameState = { trophies: [], coins: 0
 
   function resetLevelStyle() {
     every('level', (level) => {
-      level.opacity = 0.2;
+      level.color = rgb(127, 140, 141);
       level.scale = 1;
+      level.use(outline(5, BLACK));
+    });
+
+    every('level-sprite', (levelSprite) => {
+      levelSprite.scale = 4;
+      levelSprite.play('freeze');
     });
   }
 
   function activeLevelStyle(level?: GameObj) {
     play('click');
     if (level) {
-      level.opacity = 1;
+      level.color = rgb(255, 255, 255);
       level.scale = 1.2;
+      level.use(outline(5, level.outlineColor));
       activeLevel = level;
+
+      const sprite = get(`${level.level}-sprite`)[0];
+      if (sprite) {
+        sprite.scale = 5;
+        sprite.play('idle');
+      }
     }
   }
 

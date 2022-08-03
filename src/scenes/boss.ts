@@ -1,8 +1,11 @@
+import addBackground from '../components/background';
 import { FRUITS_SIZE, MARK_SIZE } from '../constants/sprite';
 import battle from '../engine/battle';
 import { BattleState } from '../types/game';
 
 const boss = (success: boolean, battleState: BattleState) => {
+  addBackground();
+
   for (let i = 0; i < battle.playerHp; i++) {
     add([
       //
