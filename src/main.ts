@@ -10,7 +10,7 @@ import './scenes/credit';
 import './scenes/gameover';
 
 function start() {
-  go('start');
+  go('levels');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
