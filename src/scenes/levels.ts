@@ -1,12 +1,13 @@
 import { GameObj } from 'kaboom';
+
 import addBackground from '../components/background';
 import { FRUITS_SIZE, TROPHY_TEXT_WIDTH } from '../constants/sprite';
 import gameState from '../engine/state';
 import { ANIM_TEXT, TEXT } from '../constants/style';
-
 import './game';
 import './platformer';
 import { LEVELS, Trophies, WORLDS_CONFIG } from '../constants/levels';
+import goAnim from '../components/go_anim';
 
 const levels = () => {
   const { trophies } = gameState;
@@ -157,7 +158,7 @@ const levels = () => {
     gameState.changeMusic(play('platform'));
     gameState.claimTrophy(activeLevel.level as Trophies);
 
-    go('platformer');
+    goAnim('platformer');
   });
 };
 
