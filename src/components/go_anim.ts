@@ -1,4 +1,3 @@
-
 function goAnim(scene: string, c = BLACK) {
   const overlay = add([
     //
@@ -12,7 +11,7 @@ function goAnim(scene: string, c = BLACK) {
   let time = 0;
   onUpdate(() => {
     time += 1 * dt();
-    const opacity = 1 * time / 0.5;
+    const opacity = (1 * time) / 0.5;
     if (opacity < 1) {
       overlay.opacity = opacity;
     } else {

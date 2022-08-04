@@ -1,7 +1,7 @@
 const SPEED = 20;
 const X_MOVE = SPEED * 3;
 
-function addBackground() {
+function addBackground(isFixed: boolean = false) {
   const background = add([
     //
     sprite('background'),
@@ -10,6 +10,10 @@ function addBackground() {
     opacity(0.1),
     { dir: -1 },
   ]);
+
+  if (isFixed) {
+    background.use(fixed());
+  }
 
   background.onUpdate(() => {
     const x = background.dir > 0 ? SPEED : -SPEED;

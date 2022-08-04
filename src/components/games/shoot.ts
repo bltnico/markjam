@@ -3,15 +3,18 @@ import { GameObj } from 'kaboom';
 import { SPEED } from '../../constants/player';
 import battleUi from '../battle_ui';
 import { GameOptions } from '.';
-import { FRUITS_SIZE, MARK_SIZE } from '../../constants/sprite';
+import { FRUITS_SIZE, MARK_SIZE, TILE_SIZE } from '../../constants/sprite';
+import gameGround from '../game_ground';
 
-const shoot = ({ onWin, onLose }: GameOptions) => {
+const shoot = ({ levelColor, sprites, onWin, onLose }: GameOptions) => {
+  gameGround({ solid: true, levelColor });
+
   const onGameStart = () => {
     add([
-      sprite('lemon'),
+      sprite(sprites.fruit),
       scale(3),
       area(),
-      pos(rand(0, width()), FRUITS_SIZE * 3),
+      pos(rand(0, width()), FRUITS_SIZE * 5),
       'object',
       { dir: choose([-1, 1]), speed: SPEED * 5 },
     ]);
@@ -19,15 +22,16 @@ const shoot = ({ onWin, onLose }: GameOptions) => {
 
   battleUi({
     label: 'Shoot !',
+    levelColor,
     onStart: onGameStart,
     onTimeEnd: onLose,
   });
 
   const mark = add([
-    sprite('mark'),
+    sprite('mark', { anim: 'idle' }),
     scale(2),
     area(),
-    pos(width() / 2 - MARK_SIZE * 2, height() - 64),
+    pos(width() / 2 - MARK_SIZE, height() - TILE_SIZE - MARK_SIZE),
     rotate(0),
     // @ts-ignore
     origin('center'),
@@ -52,13 +56,13 @@ const shoot = ({ onWin, onLose }: GameOptions) => {
 
   onKeyPress('space', () => {
     add([
-      //
-      rect(5, 5),
+      // @ts-ignore
+      rect(10, 10, { radius: 10 }),
       area(),
       pos(mark.pos),
       // @ts-ignore
       origin('center'),
-      color(0, 0, 0),
+      color(levelColor),
       move(UP, SPEED * 5),
       cleanup(),
       'bullet',

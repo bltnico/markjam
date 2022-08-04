@@ -1,16 +1,24 @@
-export default function patrol(speed = 60, dir = 1) {
-	return {
-		id: "patrol",
-		require: [ "pos", "area", ],
-		add() {
-			this.on("collide", (obj, col) => {
-				if (col.isLeft() || col.isRight()) {
-					dir = -dir
-				}
-			})
-		},
-		update() {
-			this.move(speed * dir, 0)
-		},
-	}
+import { GameObj } from 'kaboom';
+
+type Options = {
+  speed: number;
+  dir: number;
+  player?: GameObj;
+};
+
+export default function patrol(options: Options) {
+  return {
+    id: 'patrol',
+    require: ['pos', 'area'],
+    add() {
+      this.on('collide', (obj, col) => {
+        if (col.isLeft() || col.isRight()) {
+          options.dir = -options.dir;
+        }
+      });
+    },
+    update() {
+      this.move(options.speed * options.dir, 0);
+    },
+  };
 }

@@ -7,6 +7,7 @@ import './scenes/battle';
 import './scenes/levels';
 import './scenes/boss';
 import './scenes/credit';
+import './scenes/gameover';
 
 function start() {
   go('start');

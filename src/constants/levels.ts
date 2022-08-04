@@ -1,3 +1,5 @@
+import { BEFORE_CHERRY_BOSS, BEFORE_LEMON_BOSS, BEFORE_ORANGE_BOSS, BEFORE_STRAWBERRY_BOSS } from './dialogs';
+
 export enum Trophies {
   LEMON = 'lemon',
   ORANGE = 'orange',
@@ -13,8 +15,12 @@ export const WORLDS_CONFIG = {
     id: Trophies.LEMON,
     dir: UP,
     levelColor: rgb(226, 204, 91),
+    dialogs: {
+      beforeBoss: BEFORE_LEMON_BOSS,
+    },
     sprites: {
-      thrashMob: 'lemonMob',
+      thrashMob: 'strawberryMob',
+      fruit: 'lemon',
       boss: 'lemonBoss',
       ground: 'ground',
       singleGround: 'singleGround',
@@ -25,8 +31,12 @@ export const WORLDS_CONFIG = {
     id: Trophies.ORANGE,
     dir: RIGHT,
     levelColor: rgb(239, 137, 62),
+    dialogs: {
+      beforeBoss: BEFORE_ORANGE_BOSS,
+    },
     sprites: {
-      thrashMob: 'lemonMob',
+      thrashMob: 'strawberryMob',
+      fruit: 'orange',
       boss: 'orangeBoss',
       ground: 'ground',
       singleGround: 'singleGround',
@@ -37,8 +47,12 @@ export const WORLDS_CONFIG = {
     id: Trophies.STRAWBERRY,
     dir: DOWN,
     levelColor: rgb(209, 49, 51),
+    dialogs: {
+      beforeBoss: BEFORE_STRAWBERRY_BOSS,
+    },
     sprites: {
       thrashMob: 'strawberryMob',
+      fruit: 'strawberry',
       boss: 'strawberryBoss',
       ground: 'ground',
       singleGround: 'singleGround',
@@ -49,8 +63,12 @@ export const WORLDS_CONFIG = {
     id: Trophies.CHERRY,
     dir: LEFT,
     levelColor: rgb(254, 48, 130),
+    dialogs: {
+      beforeBoss: BEFORE_CHERRY_BOSS,
+    },
     sprites: {
       thrashMob: 'lemonMob',
+      fruit: 'cherry',
       boss: 'cherryBoss',
       ground: 'ground',
       singleGround: 'singleGround',
