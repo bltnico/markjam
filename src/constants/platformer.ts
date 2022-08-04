@@ -135,12 +135,10 @@ export const PLATFORMER_LEVELS = {
 };
 
 export const PLATFORMER_LEVEL_CONF = {
-  // grid size
   width: 64,
   height: 64,
-  // define each object as a list of components
   '^': () => [
-    sprite('peaks'),
+    sprite('peaks', { anim: 'active' }),
     area(),
     solid(),
     scale(4),
@@ -148,11 +146,10 @@ export const PLATFORMER_LEVEL_CONF = {
     'danger',
   ],
   '|': () => [
-    sprite('wall'),
+    sprite('singleGround'),
     area(),
     // origin('bot'),
-    scale(4),
-    solid(),
+     solid(),
     'wall',
   ],
   '@': () => [

@@ -9,7 +9,7 @@ const bergamote = () => {
   play('jingle');
 
   // @ts-ignore
-  add([text('Markjam', { size: 30 }), pos(center()), origin('center'), lifespan(1)]);
+  add([text('Jam Quest', { size: 30 }), pos(center()), origin('center'), lifespan(1)]);
   // @ts-ignore
   add([text('A bergamote production', ANIM_TEXT), pos(center()), origin('center'), late(1), lifespan(2)]);
   // @ts-ignore

@@ -9,7 +9,7 @@ import './scenes/boss';
 import './scenes/credit';
 
 function start() {
-  go('levels');
+  go('start');
 }
 
 window.addEventListener('DOMContentLoaded', () => {
