@@ -6,4 +6,4 @@ export const INTRO = [
 ];
 
 export const BATTLE_LEMON_WIN = [['mark', 'Bye bye lemon']];
-export const BATTLE_LEMON_LOSE = [['lemonBoss', 'Stupid mark !']];
+export const BATTLE_LEMON_LOSE_DIALOG = 'Stupid mark !';

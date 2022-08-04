@@ -1,4 +1,5 @@
-import { BATTLE_LEMON_LOSE, BATTLE_LEMON_WIN } from '../constants/dialogs';
+import { BATTLE_LEMON_LOSE_DIALOG, BATTLE_LEMON_WIN } from '../constants/dialogs';
+import { WORLDS_CONFIG } from '../constants/levels';
 import addBackground from '../components/background';
 import battle from '../engine/battle';
 import './boss';
@@ -7,6 +8,8 @@ import gameState from '../engine/state';
 
 const battleScene = () => {
   const music = play('game');
+  const { claimableTrophy } = gameState;
+  const { sprites } = WORLDS_CONFIG[claimableTrophy];
 
   addBackground();
 
@@ -23,7 +26,7 @@ const battleScene = () => {
       gameState.winTrophy();
     }
 
-    go('dialog', win ? BATTLE_LEMON_WIN : BATTLE_LEMON_LOSE, () => {
+    go('dialog', win ? BATTLE_LEMON_WIN : [[sprites.boss, BATTLE_LEMON_LOSE_DIALOG, { anim: 'idle' }]], () => {
       go('levels');
     });
   });
