@@ -1,11 +1,15 @@
 import addBackground from '../components/background';
 import { ANIM_TEXT, TEXT } from '../constants/style';
+import gameState from '../engine/state';
 
-type ExtraSpriteConfig = { anim: string } | undefined;
+type ExtraSpriteConfig = { anim: string; scale?: number } | undefined;
 type Dialog = [string, string, ExtraSpriteConfig];
 
 const dialog = (dialogs: Dialog[], onEnd: Function = () => {}) => {
   addBackground();
+  if (gameState.isFinalBoss) {
+    gameState.changeMusic(play('dialogs', { loop: true }));
+  }
 
   let curDialog = 0;
 
