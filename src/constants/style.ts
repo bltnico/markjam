@@ -1,4 +1,5 @@
 export const TEXT = { size: 24, font: 'sink', lineSpacing: 10 };
+export const TEXT_WIDTH = 650;
 
 export const ANIM_TEXT = {
   ...TEXT,

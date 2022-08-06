@@ -332,3 +332,12 @@ export const PLATFORMER_LEVEL_CONF = {
     'portal',
   ],
 };
+
+export const PLATFORMER_LEVEL_SCORE_MULTIPLIERS = {
+ [Trophies.LEMON]: 500,
+ [Trophies.CHERRY]: 600,
+ [Trophies.ORANGE]: 1000,
+ [Trophies.STRAWBERRY]: 1500,
+};
+
+export const FINAL_BOSS_SCORE = 1000;

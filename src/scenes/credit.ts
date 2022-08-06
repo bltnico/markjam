@@ -1,34 +1,15 @@
 import addBackground from '../components/background';
-import { ANIM_TEXT } from '../constants/style';
+import { END_CREDITS_PAGE_1 } from '../constants/credits';
 
-const TEXT_WIDTH = 650;
-
-const credit = () => {
+const credit = (credits: typeof END_CREDITS_PAGE_1, cb: () => void) => {
   addBackground();
 
-  add([
-    //
-    text('Credits', { ...ANIM_TEXT, width: TEXT_WIDTH, size: 34 }),
-    pos(center().x - TEXT_WIDTH / 2, center().y - 200),
-  ]);
+  credits.forEach((c) => add([
+    text(c.text, c.options),
+    c.pos,
+  ]));
 
-  add([
-    //
-    text('Original music by Powered Rails', { ...ANIM_TEXT, width: TEXT_WIDTH }),
-    pos(center().x - TEXT_WIDTH / 2, center().y - 100),
-  ]);
-
-  add([
-    //
-    text('Original assets by Eldenn', { ...ANIM_TEXT, width: TEXT_WIDTH }),
-    pos(center().x - TEXT_WIDTH / 2, center().y),
-  ]);
-
-  add([
-    //
-    text('An original idea from Powered Rails & bltnico', { ...ANIM_TEXT, width: TEXT_WIDTH }),
-    pos(center().x - TEXT_WIDTH / 2, center().y + 100),
-  ]);
+  wait(5, () => cb());
 };
 
 scene('credit', credit);

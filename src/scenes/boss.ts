@@ -1,6 +1,6 @@
 import addBackground from '../components/background';
 import goAnim from '../components/go_anim';
-import { WORLDS_CONFIG } from '../constants/levels';
+import { FINAL_BOSS_SPRITE, WORLDS_CONFIG } from '../constants/levels';
 import { FRUITS_SIZE, MARK_SIZE } from '../constants/sprite';
 import battle from '../engine/battle';
 import gameState from '../engine/state';
@@ -8,7 +8,7 @@ import gameState from '../engine/state';
 const boss = (success: boolean) => {
   addBackground();
 
-  const { claimableTrophy } = gameState;
+  const { claimableTrophy, isFinalBoss } = gameState;
 
   for (let i = 0; i < battle.playerHp; i++) {
     add([
@@ -20,11 +20,12 @@ const boss = (success: boolean) => {
     ]);
   }
 
+  const bossSprite = isFinalBoss ? FINAL_BOSS_SPRITE : WORLDS_CONFIG[claimableTrophy].sprites.boss;
+
   for (let i = 0; i < battle.bossHp; i++) {
     add([
       //
-      sprite(WORLDS_CONFIG[claimableTrophy].sprites.boss),
-      scale(3),
+      sprite(bossSprite, { width: MARK_SIZE * 1.5 }),
       pos(width() - FRUITS_SIZE * 3 * i - 2 - FRUITS_SIZE * 3 - 10, 20),
       fixed(),
     ]);
@@ -41,8 +42,8 @@ const boss = (success: boolean) => {
   shake(10);
 
   const boss = add([
-    sprite(WORLDS_CONFIG[claimableTrophy].sprites.boss, { anim: success ? 'hurt' : 'idle' }),
-    scale(5),
+    sprite(bossSprite, { anim: success ? 'hurt' : 'idle' }),
+    scale(isFinalBoss ? 1.5 : 5),
     pos(center()),
     // @ts-ignore
     origin('center'),
