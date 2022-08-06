@@ -10,13 +10,17 @@ import { LEVELS, Trophies, WORLDS_CONFIG } from '../constants/levels';
 import goAnim from '../components/go_anim';
 
 const levels = () => {
-  const { trophies } = gameState;
+  const { trophies, score, highScore } = gameState;
+
   let activeLevel = add([{ level: '' }]);
 
   layers(['background', 'ui'], 'ui');
   addBackground();
+  const scorePostition = 800 - ((String(highScore).length)* TEXT.size) - 40;
 
   const fruitsSaved = add([text('Fruits saved: ', { ...TEXT, size: 16 }), pos(20, 20), fixed()]);
+  add([text(`Score: ${score}`, { ...TEXT, size: 16 }), pos(scorePostition, 40), fixed()]);
+  add([text(`High Score: ${highScore}`, { ...TEXT, size: 16 }), pos(scorePostition, 20), fixed()]);
 
   if (trophies.length === 0) {
     destroy(fruitsSaved);

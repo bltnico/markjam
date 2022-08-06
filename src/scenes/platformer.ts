@@ -3,7 +3,7 @@ import { PLATFORMER_LEVELS, PLATFORMER_LEVEL_CONF } from '../constants/platforme
 import './transition';
 import gameState from '../engine/state';
 import { GameObj } from 'kaboom';
-import { Trophies, WORLDS_CONFIG } from '../constants/levels';
+import { WORLDS_CONFIG } from '../constants/levels';
 import patrol from '../components/ennemies/patrol';
 import addBackground from '../components/background';
 import { TEXT } from '../constants/style';
@@ -136,7 +136,7 @@ const platformer = (levelId = 0) => {
 
   player.onCollide('enemy', (_: any, col: { isBottom: () => boolean }) => {
     // @XXX: if it's not from the top, die
-    if (!col.isBottom()) {
+    if (!col?.isBottom()) {
       execLoseRoutine();
     }
   });

@@ -1,20 +1,22 @@
 import { Color } from 'kaboom';
 
 import { Game, games } from '../components/games';
+import gameState from './state';
 
 const INITIAL_BOSS_HP = 3;
 const INITIAL_PLAYER_HP = 3;
+const INITIAL_FINAL_BOSS_HP = 5;
 
 class Battle {
-  bossHp: number = INITIAL_BOSS_HP;
+  bossHp: number = gameState.isFinalBoss ? INITIAL_FINAL_BOSS_HP: INITIAL_BOSS_HP;
   playerHp: number = INITIAL_PLAYER_HP;
   private _gamePlayed: Game[] = [];
   private _onGameEnd: (win: boolean) => void = () => {};
   private _onBattleEnd: (win: boolean) => void = () => {};
 
   private reset() {
-    this.bossHp = INITIAL_BOSS_HP;
-    this.playerHp = INITIAL_PLAYER_HP;
+    this.bossHp = gameState.isFinalBoss ? INITIAL_FINAL_BOSS_HP : INITIAL_BOSS_HP;
+    this.playerHp =  INITIAL_PLAYER_HP;
     this._gamePlayed = [];
   }
 
@@ -22,6 +24,9 @@ class Battle {
     this.bossHp -= 1;
 
     if (this.bossHp === 0) {
+      if (gameState.isFinalBoss) {
+        gameState.saveFinalBossScore(this.playerHp);
+      }
       this._onBattleEnd(true);
       this.reset();
     } else {
@@ -57,6 +62,10 @@ class Battle {
       onWin: () => this.bossHurt(),
       onLose: () => this.playerHurt(),
     });
+  }
+
+  setupFinalBoss() {
+    this.bossHp = 5;
   }
 
   onGameEnd(cb: (win: boolean) => void) {
