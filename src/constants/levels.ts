@@ -86,3 +86,4 @@ export const WORLDS_CONFIG = {
 
 export const FINAL_BOSS_SPRITE = 'darthAppel';
 export const FINAL_BOSS_FRUIT = 'apple';
+export const FINAL_BOSS_LEVEL_COLOR = rgb(209, 49, 51);

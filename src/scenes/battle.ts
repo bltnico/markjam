@@ -1,5 +1,5 @@
 import { BATTLE_DARTH_APPLE_LOSE, END_SCENE, FINAL_BOSS } from '../constants/dialogs';
-import { FINAL_BOSS_FRUIT, FINAL_BOSS_SPRITE, WORLDS_CONFIG } from '../constants/levels';
+import { FINAL_BOSS_FRUIT, FINAL_BOSS_LEVEL_COLOR, FINAL_BOSS_SPRITE, WORLDS_CONFIG } from '../constants/levels';
 import addBackground from '../components/background';
 import battle from '../engine/battle';
 import './boss';
@@ -20,8 +20,9 @@ const battleScene = () => {
   const _sprites = isFinalBoss
     ? { ...sprites, fruit: FINAL_BOSS_FRUIT, boss: FINAL_BOSS_SPRITE }
     : sprites;
+  const battleLevelColor = isFinalBoss ? FINAL_BOSS_LEVEL_COLOR : levelColor;
 
-  battle.play(levelColor, _sprites);
+  battle.play(battleLevelColor, _sprites);
 
   battle.onGameEnd((win: boolean) => {
     music.stop();
@@ -64,7 +65,10 @@ const battleScene = () => {
     }
 
     if (!win) {
-      gameState.loseCoins();
+      if (isFinalBoss) {
+        gameState.proceedEndGame();
+      }
+
       go('dialog', dialog, () => {
         goAnim('levels');
       });

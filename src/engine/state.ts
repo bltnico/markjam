@@ -4,7 +4,7 @@ import { FINAL_BOSS_SCORE, PLATFORMER_LEVEL_SCORE_MULTIPLIERS } from '../constan
 import { GameState } from '../types/game';
 
 class State implements GameState {
-  trophies: Trophies[] = [Trophies.ORANGE, Trophies.STRAWBERRY, Trophies.CHERRY];
+  trophies: Trophies[] = [];
   coins: number = 0;
   score = 0;
   highScore = 0;
