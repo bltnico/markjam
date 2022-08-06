@@ -4,13 +4,14 @@ import { SPEED } from '../../constants/player';
 import { FRUITS_SIZE, MARK_SIZE } from '../../constants/sprite';
 import battleUi from '../battle_ui';
 import { GameOptions } from '.';
+import addCoinText from '../add_coin_text';
 
-const collect = ({ onWin, onLose }: GameOptions) => {
+const collect = ({ levelColor, sprites, onWin, onLose }: GameOptions) => {
   const onGameStart = () => {
     for (let i = 0; i < target; i++) {
       wait(0.5 * i, () => {
         add([
-          sprite('lemon'),
+          sprite(sprites.fruit),
           scale(3),
           area(),
           pos(rand(0, width() - FRUITS_SIZE * 3), rand(0, height() - FRUITS_SIZE * 3)),
@@ -22,6 +23,7 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   battleUi({
     label: 'Collect !',
+    levelColor,
     onStart: onGameStart,
     onTimeEnd: onLose,
   });
@@ -30,7 +32,7 @@ const collect = ({ onWin, onLose }: GameOptions) => {
   let catched = 0;
 
   const mark = add([
-    sprite('mark'),
+    sprite('mark', { anim: 'idle' }),
     scale(2),
     area(),
     pos(rand(0, width() - MARK_SIZE * 2), rand(0, height() - MARK_SIZE * 2)),
@@ -41,7 +43,6 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('up', () => {
     mark.move(0, -SPEED * 2);
-    mark.angle -= 20;
     if (mark.pos.y < 0) {
       mark.pos.y = 0;
     }
@@ -49,7 +50,6 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('down', () => {
     mark.move(0, SPEED * 2);
-    mark.angle += 20;
     if (mark.pos.y > height()) {
       mark.pos.y = height();
     }
@@ -57,7 +57,7 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('left', () => {
     mark.move(-SPEED * 2, 0);
-    mark.angle -= 20;
+    mark.flipX(true);
     if (mark.pos.x < 0) {
       mark.pos.x = 0;
     }
@@ -65,7 +65,7 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('right', () => {
     mark.move(SPEED * 2, 0);
-    mark.angle += 20;
+    mark.flipX(false);
     if (mark.pos.x > width()) {
       mark.pos.x = width();
     }
@@ -73,6 +73,7 @@ const collect = ({ onWin, onLose }: GameOptions) => {
 
   mark.onCollide('object', (el: GameObj) => {
     play('click');
+    addCoinText(el.pos);
     destroy(el);
     catched++;
 

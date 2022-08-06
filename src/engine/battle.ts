@@ -1,3 +1,5 @@
+import { Color } from 'kaboom';
+
 import { Game, games } from '../components/games';
 
 const INITIAL_BOSS_HP = 3;
@@ -38,7 +40,7 @@ class Battle {
     }
   }
 
-  play() {
+  play(levelColor: Color, sprites: Record<string, string>) {
     let game = games[0];
     const potentialGames = games.filter((game) => !this._gamePlayed.includes(game));
     if (potentialGames.length === 0) {
@@ -50,6 +52,8 @@ class Battle {
     }
 
     game.play({
+      levelColor,
+      sprites,
       onWin: () => this.bossHurt(),
       onLose: () => this.playerHurt(),
     });

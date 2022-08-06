@@ -1,3 +1,5 @@
+import { Color } from 'kaboom';
+
 import collect from './collect';
 import dodge from './dodge';
 import jump from './jump';
@@ -6,6 +8,8 @@ import climb from './climb';
 import shoot from './shoot';
 
 export type GameOptions = {
+  levelColor: Color;
+  sprites: Record<string, string>;
   onWin: () => void;
   onLose: () => void;
 };

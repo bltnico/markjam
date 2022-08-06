@@ -6,4 +6,28 @@ export const INTRO = [
 ];
 
 export const BATTLE_LEMON_WIN = [['mark', 'Bye bye lemon']];
-export const BATTLE_LEMON_LOSE_DIALOG = 'Stupid mark !';
+export const BATTLE_LEMON_LOSE = 'Stupid mark !';
+
+export const BEFORE_LEMON_BOSS = [
+  //
+  ['mark', ''],
+  ['lemonBoss', ''],
+];
+
+export const BEFORE_ORANGE_BOSS = [
+  //
+  ['mark', ''],
+  ['orangeBoss', ''],
+];
+
+export const BEFORE_STRAWBERRY_BOSS = [
+  //
+  ['mark', ''],
+  ['strawberryBoss', ''],
+];
+
+export const BEFORE_CHERRY_BOSS = [
+  //
+  ['mark', ''],
+  ['cherryBoss', ''],
+];

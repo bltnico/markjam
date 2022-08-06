@@ -3,21 +3,25 @@ import { GameObj } from 'kaboom';
 import { GameOptions } from '.';
 import { JUMP_FORCE, SPEED } from '../../constants/player';
 import { FRUITS_SIZE, MARK_SIZE } from '../../constants/sprite';
+import addCoinText from '../add_coin_text';
 import battleUi from '../battle_ui';
+import gameGround from '../game_ground';
 
 const PLATFORM_COUNT = 4;
 const PLATFORM_WIDTH = 200;
 
-const climb = ({ onWin, onLose }: GameOptions) => {
-  gravity(3200);
+const climb = ({ levelColor, sprites, onWin, onLose }: GameOptions) => {
+  gameGround({ solid: true, levelColor });
+
+  gravity(4500);
 
   const onGameStart = () => {
     let i = 0;
     for (; i < PLATFORM_COUNT; i++) {
       add([
-        //
-        rect(PLATFORM_WIDTH, 20),
-        color(0, 0, 0),
+        // @ts-ignore
+        rect(PLATFORM_WIDTH, 5, { radius: 5 }),
+        color(levelColor),
         pos(rand(0, width() - PLATFORM_WIDTH), height() - 130 * (i + 1)),
         solid(),
         area(),
@@ -30,7 +34,7 @@ const climb = ({ onWin, onLose }: GameOptions) => {
       if (lastPlatform) {
         add([
           //
-          sprite('lemon'),
+          sprite(sprites.fruit),
           scale(3),
           area(),
           pos(lastPlatform.pos.x, lastPlatform.pos.y - FRUITS_SIZE * 3 - 10),
@@ -42,6 +46,7 @@ const climb = ({ onWin, onLose }: GameOptions) => {
 
   battleUi({
     label: 'Climb !',
+    levelColor,
     onStart: onGameStart,
     onTimeEnd: onLose,
   });
@@ -50,7 +55,7 @@ const climb = ({ onWin, onLose }: GameOptions) => {
 
   // prettier-ignore
   const mark = add([
-    sprite('mark'),
+    sprite('mark', { anim: 'idle' }),
     scale(2),
     area(),
     body(),
@@ -78,7 +83,7 @@ const climb = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('left', () => {
     mark.move(-SPEED, 0);
-    mark.angle -= 20;
+    mark.flipX(true);
     if (mark.pos.x < 0) {
       mark.pos.x = 0;
     }
@@ -86,7 +91,7 @@ const climb = ({ onWin, onLose }: GameOptions) => {
 
   onKeyDown('right', () => {
     mark.move(SPEED, 0);
-    mark.angle += 20;
+    mark.flipX(false);
     if (mark.pos.x > width()) {
       mark.pos.x = width();
     }
@@ -99,8 +104,12 @@ const climb = ({ onWin, onLose }: GameOptions) => {
     }
   });
 
-  mark.onCollide('object', () => {
-    onWin();
+  mark.onCollide('object', (el: GameObj) => {
+    addCoinText(el.pos);
+    destroy(el);
+    wait(0.3, () => {
+      onWin();
+    });
   });
 };
 
